@@ -15,7 +15,6 @@ Use the keras package and neural networks to build a regression model that predi
 
 from keras.datasets import boston_housing
 
-
 # load dataset and split into training and testing data
 # Dataset Info: https://www.cs.toronto.edu/~delve/data/boston/bostonDetail.html
 (x_train, y_train), (x_test, y_test) = boston_housing.load_data()

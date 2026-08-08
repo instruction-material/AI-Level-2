@@ -6,24 +6,23 @@ import math
 
 
 class Neuron:
-	
-	def __init__(self, w1, w2, activ_fn):
-		self.w1 = w1
-		self.w2 = w2
-		self.activation_function = activ_fn
-	
-	def run(self, x1, x2, b):
-		dot = x1 * self.w1 + x2 * self.w2 + b
-		return self.activation_function(dot)
+
+    def __init__(self, w1, w2, activ_fn):
+        self.w1 = w1
+        self.w2 = w2
+        self.activation_function = activ_fn
+
+    def run(self, x1, x2, b):
+        dot = x1 * self.w1 + x2 * self.w2 + b
+        return self.activation_function(dot)
 
 
 def sigmoid(x):
-	return 1 / (1 + math.pow(math.e, x * -1))
+    return 1 / (1 + math.pow(math.e, x * -1))
 
 
 def relu(x):
-	return max(0, x)
-
+    return max(0, x)
 
 
 x1 = 0

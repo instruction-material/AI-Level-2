@@ -18,7 +18,6 @@ from keras.layers import Dense
 from keras.models import Sequential
 from sklearn.model_selection import train_test_split
 
-
 """# New Section"""
 
 # read in data and split into feature vectors and classifications
@@ -33,7 +32,9 @@ y = data["Outcome"]
 # y.head()
 
 # split into testing and training data
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42
+)
 
 # build a sequential neural net
 # first layer takes in a vector of size 8 (the feature vector size), has 20 nodes and activation function relu
@@ -43,7 +44,9 @@ model = Sequential()
 model.add(Dense(20, input_dim=8, activation='relu'))
 model.add(Dense(12, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.compile(
+    loss='binary_crossentropy', optimizer='adam', metrics=['accuracy']
+)
 model.fit(x_train, y_train, epochs=300, validation_split=0.2, batch_size=10)
 
 # run on testing data and get accuracy

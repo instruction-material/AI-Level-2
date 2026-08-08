@@ -9,7 +9,6 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 
-
 # Dataset: https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/639388c2cbc2120a14dcf466e85730eb8be498bb/iris.csv
 
 # read in data
@@ -29,7 +28,9 @@ X = X.to_numpy()
 y = y.to_numpy()
 
 # split into testing and training data
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42
+)
 
 # create and train Naive Bayes classifier
 model = MultinomialNB()
@@ -41,6 +42,10 @@ print("Accuracy: " + str(accuracy_score(y_test, y_pred) * 100) + " %")
 print()
 
 # run classifier on your own feature vectors
-custom_vectors = [[5.2, 3.1, 1.6, 0.3], [6.0, 3.0, 4.8, 1.1], [7.5, 3.0, 6.2, 2.0]]
+custom_vectors = [
+    [5.2, 3.1, 1.6, 0.3],
+    [6.0, 3.0, 4.8, 1.1],
+    [7.5, 3.0, 6.2, 2.0],
+]
 # custom_vectors = [[1.2, 2.5, 2.3, 3.6], [2.7, 5.6, 5.2, 8.1], [5.1, 6.2, 3.4, 7.1]]
 print(model.predict(custom_vectors))

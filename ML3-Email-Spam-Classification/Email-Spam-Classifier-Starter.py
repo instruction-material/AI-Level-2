@@ -17,7 +17,6 @@ import nltk
 import pandas as pd
 from nltk.corpus import stopwords
 
-
 filepath = "https://static.junilearning.com/ai_level_2/emails.csv"
 
 # Dataset: https://www.kaggle.com/venky73/spam-mails-dataset

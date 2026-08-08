@@ -15,7 +15,6 @@ Use packages like keras, scikit-learn and tensorflow to build a neural network c
 
 import pandas as pd
 
-
 # filepath = 'https://static.junilearning.com/ai_level_2/diabetes.csv'
 filepath = 'https://static.classes.jacobdanderson.net/diabetes.csv'
 # dataset: https://www.kaggle.com/uciml/pima-indians-diabetes-database

@@ -35,9 +35,9 @@ x_test = sc.transform(x_test)
 # Define a simple feedforward (Dense) regression network.
 # input_dim=13 matches the number of feature columns in Boston Housing.
 model = Sequential()
-model.add(Dense(8, input_dim=13, activation="relu"))   # Hidden layer 1
-model.add(Dense(16, activation="relu"))                # Hidden layer 2
-model.add(Dense(1))                                    # Output: single continuous value (price)
+model.add(Dense(8, input_dim=13, activation="relu"))  # Hidden layer 1
+model.add(Dense(16, activation="relu"))  # Hidden layer 2
+model.add(Dense(1))  # Output: single continuous value (price)
 
 # Compile with optimizer and loss/metrics for regression.
 # "mse" = mean squared error (training objective), "mae" = mean absolute error (reporting metric).

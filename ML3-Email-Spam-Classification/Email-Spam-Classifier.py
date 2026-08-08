@@ -23,7 +23,6 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 
-
 filepath = "https://static.junilearning.com/ai_level_2/emails.csv"
 
 # Dataset: https://www.kaggle.com/venky73/spam-mails-dataset
@@ -38,17 +37,17 @@ nltk.download('stopwords')
 
 
 def tokenize(text):
-	no_punctuation_str = []
-	for c in text:
-		if c not in string.punctuation:
-			no_punctuation_str.append(c)
-	no_punctuation_str = ''.join(no_punctuation_str)
-	
-	nonstop_words = []
-	for word in no_punctuation_str.split():
-		if word.lower() not in stopwords.words('english'):
-			nonstop_words.append(word)
-	return nonstop_words
+    no_punctuation_str = []
+    for c in text:
+        if c not in string.punctuation:
+            no_punctuation_str.append(c)
+    no_punctuation_str = ''.join(no_punctuation_str)
+
+    nonstop_words = []
+    for word in no_punctuation_str.split():
+        if word.lower() not in stopwords.words('english'):
+            nonstop_words.append(word)
+    return nonstop_words
 
 
 # build feature vectors(X) and label(y) for each vector
@@ -57,7 +56,9 @@ X = CountVectorizer(analyzer=tokenize).fit_transform(data['text'])
 y = data['label_num']
 
 # split into testing and training data
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42
+)
 
 # create and train Naive Bayes classifier
 model = MultinomialNB()
