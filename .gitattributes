@@ -7,3 +7,11 @@ ML6-Offline-Housing-Comparison/*/data/*.csv text eol=lf
 ML-11-*/*/data/*.csv text eol=lf
 ML-12-*/*/data/*.csv text eol=lf
 ML-Offline-Case-Fixtures/manifest.json text eol=lf
+
+# Authored remaining source cases and complete offline workspaces
+ML-1[3-9]-*/**/*.csv text eol=lf
+ML-2[0-9]-*/**/*.csv text eol=lf
+ML-30-*/**/*.csv text eol=lf
+ML-Source-Cases/**/*.csv text eol=lf
+ML7-Offline-Weather-Classifier/**/*.csv text eol=lf
+ML8-Offline-Model-Comparison/**/*.csv text eol=lf
