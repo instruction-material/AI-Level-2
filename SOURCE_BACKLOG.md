@@ -9,12 +9,12 @@ Promotion rule: restore a folder from `_archived-unlinked/` only after the live 
 ## Supplemental algorithm review, 2026-11-16
 
 All 30 generated supplemental reference packs originally repeated CSV count/total/mean
-statistics. The first four starter/reference pairs now teach their named methods:
+statistics. The first six starter/reference pairs now teach their named methods:
 training-only scaled KNN, weighted KNN, Gaussian Naive Bayes and Multinomial Naive
-Bayes. The two KNN pairs have 20 independent checks; the two Naive Bayes pairs
-have 19. Each repaired role includes its own fixed training/test data and a
+Bayes, a Gini decision stump and a bounded recursive decision tree. The two KNN pairs have 20 independent checks; the two Naive Bayes pairs
+have 19; the two decision-tree pairs have 24. Each repaired role includes its own fixed training/test data and a
 complete exercise with hand-worked expected results.
 
-The remaining 26 generated pairs still need algorithm-specific source repair and
+The remaining 24 generated pairs still need algorithm-specific source repair and
 verification. This inventory gate verifies source presence; it does not certify
 algorithm correctness or complete course/browser acceptance.

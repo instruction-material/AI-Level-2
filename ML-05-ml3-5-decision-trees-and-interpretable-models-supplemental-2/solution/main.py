@@ -1,49 +1,123 @@
 import csv
+import json
+import math
+from collections import Counter
 from pathlib import Path
 
-#################
-#   CONSTANTS   #
-#################
-
-DATA_FILE = Path("data/sample.csv")
-VALUE_FIELD = "value"
-COUNT_FIELD = "count"
-TOTAL_FIELD = "total"
-AVERAGE_FIELD = "average"
-EMPTY_AVERAGE = 0.0
+DATA = Path(__file__).resolve().parent / "data"
+DEFAULT_DEPTH = 1
 
 
-#################
-#   FUNCTIONS   #
-#################
+def validate(points, labels=None):
+    if not points or any(
+        len(row) != 2 or any(
+            isinstance(value, bool) or not isinstance(value, (int, float))
+            or not math.isfinite(value) for value in row
+        ) for row in points
+    ):
+        raise ValueError("Supply nonempty finite two-feature measurements.")
+    if labels is not None and (len(labels) != len(points) or any(
+        not isinstance(label, str) or not label.strip() for label in labels
+    )):
+        raise ValueError("Each row needs a nonempty class label.")
 
 
-def load_values() -> list[int]:
-    """Load integer values from the sample CSV file"""
-    # Read the named value column from each CSV row
-    with DATA_FILE.open(newline="") as handle:
-        reader = csv.DictReader(handle)
-        return [int(row[VALUE_FIELD]) for row in reader]
+def gini(labels):
+    if not labels:
+        raise ValueError("A node must contain labels.")
+    counts = Counter(labels)
+    return 1 - sum((count / len(labels)) ** 2 for count in counts.values())
 
 
-def summarize(values: list[int]) -> dict[str, float]:
-    """Summarize the count total and average for the provided values"""
-    total = sum(values)
-    count = len(values)
+def best_split(points, labels):
+    """Choose the lowest weighted child impurity; stable feature/threshold ties."""
+    best = None
+    for feature in range(2):
+        values = sorted(set(point[feature] for point in points))
+        for low, high in zip(values, values[1:]):
+            threshold = low / 2 + high / 2
+            if threshold >= high:
+                threshold = low
+            left = [i for i, row in enumerate(points) if row[feature] <= threshold]
+            right = [i for i, row in enumerate(points) if row[feature] > threshold]
+            if not left or not right:
+                continue
+            impurity = (
+                len(left) * gini([labels[i] for i in left])
+                + len(right) * gini([labels[i] for i in right])
+            ) / len(points)
+            if best is None or impurity < best["impurity"] - 1e-12:
+                best = {"feature": feature, "threshold": threshold,
+                        "left": left, "right": right, "impurity": impurity}
+    return best
 
-    # Avoid division by zero when a dataset has no rows
-    average = total / count if count else EMPTY_AVERAGE
 
-    return {
-        COUNT_FIELD: count,
-        TOTAL_FIELD: total,
-        AVERAGE_FIELD: average,
-    }
+def grow(points, labels, depth, max_depth):
+    counts = dict(sorted(Counter(labels).items()))
+    node = {"counts": counts, "prediction": min(counts, key=lambda label: (-counts[label], label)),
+            "impurity": gini(labels)}
+    if depth >= max_depth or len(counts) == 1:
+        return node
+    split = best_split(points, labels)
+    if split is None or split["impurity"] >= node["impurity"] - 1e-12:
+        return node
+    node.update(feature=split["feature"], threshold=split["threshold"],
+                gain=node["impurity"] - split["impurity"])
+    for side in ["left", "right"]:
+        indices = split[side]
+        node[side] = grow([points[i] for i in indices], [labels[i] for i in indices],
+                          depth + 1, max_depth)
+    return node
 
 
-def main() -> None:
-    """Print the summary for the sample dataset"""
-    print(summarize(load_values()))
+def fit(points, labels, max_depth=DEFAULT_DEPTH):
+    validate(points, labels)
+    if type(max_depth) is not int or not 0 <= max_depth <= 8:
+        raise ValueError("Choose an integer depth from 0 through 8.")
+    return grow(points, labels, 0, max_depth)
+
+
+def trace(model, query):
+    validate([query])
+    node, path = model, []
+    while "feature" in node:
+        feature, threshold = node["feature"], node["threshold"]
+        left = query[feature] <= threshold
+        path.append({"feature": feature, "threshold": threshold,
+                     "branch": "left" if left else "right"})
+        node = node["left"] if left else node["right"]
+    return {"prediction": node["prediction"], "path": path, "leaf_counts": node["counts"].copy()}
+
+
+def predict(model, query):
+    return trace(model, query)["prediction"]
+
+
+def load_fixture():
+    def read(name):
+        with (DATA / name).open(newline="", encoding="utf-8") as handle:
+            rows = list(csv.DictReader(handle))
+        return [(float(row["x"]), float(row["y"])) for row in rows], [
+            row["label"] for row in rows
+        ]
+    points, labels = read("train.csv")
+    test, expected = read("test.csv")
+    return points, labels, test, expected
+
+
+def main():
+    points, labels, test, expected = load_fixture()
+    results = {}
+    for depth in [1, 2]:
+        model = fit(points, labels, depth)
+        predicted = [predict(model, query) for query in test]
+        results[str(depth)] = {
+            "root_feature": model.get("feature"), "root_threshold": model.get("threshold"),
+            "predictions": predicted,
+            "accuracy": sum(a == b for a, b in zip(predicted, expected)) / len(test),
+        }
+    print(json.dumps({"training_rows": len(points), "test_rows": len(test),
+                      "depth_comparison": results}, sort_keys=True))
 
 
 if __name__ == "__main__":
