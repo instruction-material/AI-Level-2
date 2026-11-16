@@ -75,10 +75,23 @@ Canonical source repository: `AI-Level-2`
 | `ML5-Simple-Linear-Regression-Starter` |
 | `ML6-Predicting-House-Prices` |
 | `ML8-Master-Project` |
+| `ML-Offline-Case-Fixtures` |
+| `ML0-Offline-Data-Card` |
+| `ML6-Offline-Housing-Comparison` |
+| `ML7-5-Offline-Evaluation-Contract` |
 
 ## Source Inventory
 
-- Top-level folders: 63
-- Active linked folders: 59
-- Ledgered inactive/support folders: 4
-- Source-like files: 164
+- Active top-level course and fixture folders: 63
+- Top-level archive container: 1
+- Retained folders inside the archive: 4
+- Source-like files: 192
+
+## Scoped algorithm checks
+
+Run python3 -B test_offline_housing.py -v for the three supplied fixtures,
+the data-card/evaluation-contract cores, the offline housing comparison and
+supplemental pairs 11 and 12. The first ten repaired supplemental folders
+also contain their own independent unittest files. There are 145 checks
+across this scoped suite. The inventory gate alone certifies source presence;
+full course and hosted IDE acceptance remain separate.
