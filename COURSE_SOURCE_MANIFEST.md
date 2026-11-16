@@ -12,7 +12,7 @@ Canonical source repository: `AI-Level-2`
 - The verification gate checks for this manifest, the source backlog ledger, source-like files, removed Replit metadata, and any repo-specific readiness files.
 - Project-specific unit tests or build commands should still be run inside individual project folders when a project includes its own test harness.
 
-## Active Catalog Targets
+## Active Source Folders
 
 | Folder |
 | --- |
@@ -46,9 +46,12 @@ Canonical source repository: `AI-Level-2`
 | `ML-28-applied-studio-16-disney-movie-clustering-supplemental-3` |
 | `ML-29-applied-studio-17-knn-car-classification-supplemental-2` |
 | `ML-30-applied-studio-17-knn-car-classification-supplemental-3` |
+| `ML-Offline-Case-Fixtures` |
 | `ML-Simple-Linear-Regression-Updated` |
 | `ML-Simple-Polynomial-Regression-Starter-Updated` |
 | `ML-Simple-Polynomial-Regression-Updated` |
+| `ML-Source-Cases` |
+| `ML0-Offline-Data-Card` |
 | `ML1-Customer-Segmentation` |
 | `ML1-Customer-Segmentation-Interview-Starter` |
 | `ML1-Customer-Segmentation-Starter` |
@@ -73,25 +76,42 @@ Canonical source repository: `AI-Level-2`
 | `ML5-Predicting-Life-Expectancy` |
 | `ML5-Simple-Linear-Regression` |
 | `ML5-Simple-Linear-Regression-Starter` |
-| `ML6-Predicting-House-Prices` |
-| `ML8-Master-Project` |
-| `ML-Offline-Case-Fixtures` |
-| `ML0-Offline-Data-Card` |
 | `ML6-Offline-Housing-Comparison` |
+| `ML6-Predicting-House-Prices` |
 | `ML7-5-Offline-Evaluation-Contract` |
+| `ML7-Offline-Weather-Classifier` |
+| `ML8-Master-Project` |
+| `ML8-Offline-Model-Comparison` |
 
 ## Source Inventory
 
-- Active top-level course and fixture folders: 63
+- Active top-level project, fixture and support folders: 66
 - Top-level archive container: 1
 - Retained folders inside the archive: 4
-- Source-like files: 192
+- Source-like files: 288
 
-## Scoped algorithm checks
+ML-Source-Cases is shared generator/reference/verification support, not a separately assigned learner project. Every role project contains its own required model and inputs.
 
-Run python3 -B test_offline_housing.py -v for the three supplied fixtures,
-the data-card/evaluation-contract cores, the offline housing comparison and
-supplemental pairs 11 and 12. The first ten repaired supplemental folders
-also contain their own independent unittest files. There are 145 checks
-across this scoped suite. The inventory gate alone certifies source presence;
-full course and hosted IDE acceptance remain separate.
+## Independent algorithm and execution checks
+
+Run python3 -I -B ML-Source-Cases/run_tests.py from the repository root.
+All 208 independent contracts cover the existing 145 checks plus 63 new checks
+for the remaining eighteen source pairs and the complete image/capstone cores.
+
+The thirty generated supplemental pairs now contain distinct named methods and
+tasks. Their 60 role folders are independently runnable scaffolds or worked
+references with the required inputs. Five supplied offline core pairs cover
+the data card, evaluation contract, housing comparison, image classifier and
+classification capstone.
+
+Checks include hand-worked metrics, grouped folds and held-out label mutation,
+centroid/empty-group/convergence/stability behavior, train-only preprocessing,
+polynomial solving, all 260 CNN derivatives, actual PNG bytes and budgets,
+training-only augmentation, source checksum reproducibility, actual CLI
+outputs, reachable starter tasks and the 36-file image project bound.
+The hosted workflow runs that same complete source suite.
+
+This source milestone does not certify complete teaching coverage, original
+legacy project correctness, hosted IDE imports or site/public activation.
+Preserved historical folders and archived notebooks remain separate review
+inputs. Keep source, browser, whole-course and delivery acceptance distinct.

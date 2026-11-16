@@ -1,0 +1,46 @@
+name: Independent course source contracts
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: source-contracts-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Verify source inventory and complete independent contracts
+        run: |
+          python3 --version
+          bash verify-course-source.sh
+          mkdir -p output
+          python3 -I -B ML-Source-Cases/run_tests.py > output/source-contracts.json
+          python3 - <<'PY'
+          import json, pathlib, subprocess, sys
+          output = pathlib.Path("output/source-contracts.json")
+          result = json.loads(output.read_text())
+          assert result["accepted"] and result["tests"] == 208
+          assert result["failures"] == result["errors"] == result["skipped"] == 0
+          result.update(source=subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(), python=sys.version)
+          output.write_text(json.dumps(result, indent=2) + "\n")
+          PY
+          git diff --exit-code
+      - name: Retain source evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: independent-course-source-contracts
+          path: output/source-contracts.json
+          if-no-files-found: error
+          retention-days: 30

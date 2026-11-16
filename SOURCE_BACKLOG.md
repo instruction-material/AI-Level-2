@@ -1,35 +1,47 @@
 # Source Backlog Ledger
 
-Current status: no unlinked source folders remain at the active top level.
+All current project folders are retained in the manifest. ML-Source-Cases
+contains shared generator/reference/verification support rather than a
+separate course project. Each assigned role includes its own required files.
 
-On 2026-05-14, 4 top-level folders that were not linked by the live course catalog were moved to `_archived-unlinked/`. That archive is retained for source-history review, optional-bank recovery, or future promotion, but it is not part of the active public course surface.
+The four historical folders in _archived-unlinked remain available for
+source-history review. Promotion requires a named course purpose, role,
+verification contract and matching catalog mapping.
 
-Promotion rule: restore a folder from `_archived-unlinked/` only after the live course text names where it belongs, whether it is starter or solution material, and how the student or tutor verifies it. Update `COURSE_SOURCE_MANIFEST.md` and the live catalog link in the same change.
+## Supplemental source repair, 2026-11-16
 
-## Supplemental algorithm review, 2026-11-16
+All 30 generated supplemental starter/reference pairs originally repeated CSV
+count/total/mean statistics. All thirty now contain the named, case-appropriate
+algorithms and exercises. The first twelve repairs remain unchanged.
 
-All 30 generated supplemental reference packs originally repeated CSV count/total/mean
-statistics. The first twelve starter/reference pairs now teach their named methods:
-training-only scaled KNN, weighted KNN, Gaussian Naive Bayes and Multinomial Naive
-Bayes, a Gini decision stump and a bounded recursive decision tree, a sigmoid neuron and a hidden-layer network, linear regression and validation-selected polynomial regression, a linear-output neural regressor and a bounded hidden-layer regressor with L2 regularization. The two KNN pairs have 20 independent checks; the two Naive Bayes pairs
-have 19; the two decision-tree pairs have 24; the neural-network pairs have 24; the regression pairs have 24. Each repaired role includes its own fixed training/test data and a
-complete exercise with hand-worked expected results.
+Pairs 13/14 complete training-only image augmentation and four-class error/seed
+analysis around a real bounded CNN. Pair 15 computes imbalanced prediction
+metrics; 16 builds grouped train-only model comparison. Pairs 17/18 complete
+classification stress/error analysis and a synthetic energy regression
+capstone. Pairs 19–28 cover centroid updates, restarts, raw profiles, adjusted
+Rand stability, silhouette/k choice, unit sensitivity, movie record parsing,
+nominal genre, logarithmic features and frozen query assignment. Pairs 29/30
+use the retained four-class Car Evaluation input with training-only one-hot
+encoding and uniform/inverse-distance neighbors.
 
-The remaining 18 generated pairs still need algorithm-specific source repair and
-verification. This inventory gate verifies source presence; it does not certify
-algorithm correctness or complete course/browser acceptance.
+## Supplied offline cores
 
-## Supplied offline cores, 2026-11-16
+The data-card, grouped evaluation-contract and housing-comparison workspaces
+remain unchanged. ML7-Offline-Weather-Classifier supplies 32 authored PNG
+patterns, source-disjoint named groups, actual convolution/backpropagation,
+training-only augmentation, baseline/dense comparisons, bounded training,
+class-level metrics, seed evidence and a self-contained contact sheet.
+Its image roles have 36 files each and stay within the existing IDE limit.
+The synthetic families share class renderers; these are procedural examples,
+not a real-photo validation set.
 
-ML0-Offline-Data-Card records the actual garden fixture and environment;
-ML7-5-Offline-Evaluation-Contract freezes a grouped ticket evaluation plan;
-ML6-Offline-Housing-Comparison compares median, linear and neural models.
-ML-Offline-Case-Fixtures supplies the three promised authored CSV tables and
-their deterministic generator. All roles include their required inputs.
+ML8-Offline-Model-Comparison supplies a complete reproducible classification
+capstone with a dummy baseline, two candidate families, grouped folds,
+train-only preprocessing, frozen model selection, test metrics/error slices
+and a model card. The historical ML8 placeholder remains intact for comparison.
 
-The 34 root-level checks verify these cores and pairs 11/12, including
-training-only fitting, all neural gradients, validation-only model choice,
-bounded stopping, deterministic data, complete plots and native CLI exports.
-The prior 111 independent checks remain in their first ten pack folders.
-Historical Boston Housing files remain unchanged for the optional source audit.
-This scoped repair does not complete the remaining source or course review.
+All 208 independent source contracts pass, including all 145 earlier checks.
+Original Boston, archived weather and other historical source files remain
+unchanged. Source repair is complete within the 30-pair scope; catalog task/
+input alignment, hosted import/save/export acceptance and the full course's
+teaching/legacy-source review remain separate unfinished work.
