@@ -1,14 +1,3 @@
-# ML7 Image Classifier supplemental 3
+# Class-level image errors and seed variation
 
-Course: Machine Learning
-Module: ML7 Image Classifier supplemental 3
-
-Use the starter folder first. The starter is intentionally incomplete, and the solution shows one clean way to finish the same build after the student has worked through it.
-
-Suggested flow:
-- Read the module brief and identify the core requirement.
-- Complete the TODO markers in the starter implementation.
-- Test at least one custom case beyond the default example.
-- Compare against the solution only after the student has a working draft.
-
-Quick run hint: `python3 main.py`
+Both roles include the original pattern images,grouped metadata and complete execution instructions. The starter has one named implementation task;the solution is a worked reference.

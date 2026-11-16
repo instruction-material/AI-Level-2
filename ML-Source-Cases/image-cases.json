@@ -1,0 +1,20 @@
+[
+  {
+    "number": null,
+    "folder": "ML7-Offline-Weather-Classifier",
+    "title": "Complete local weather-pattern CNN",
+    "todo": "loss_gradient"
+  },
+  {
+    "number": 13,
+    "folder": "ML-13-ml7-image-classifier-supplemental-2",
+    "title": "Training-only image augmentation",
+    "todo": "augment_training"
+  },
+  {
+    "number": 14,
+    "folder": "ML-14-ml7-image-classifier-supplemental-3",
+    "title": "Class-level image errors and seed variation",
+    "todo": "image_metrics"
+  }
+]
