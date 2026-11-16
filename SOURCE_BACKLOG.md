@@ -9,12 +9,27 @@ Promotion rule: restore a folder from `_archived-unlinked/` only after the live 
 ## Supplemental algorithm review, 2026-11-16
 
 All 30 generated supplemental reference packs originally repeated CSV count/total/mean
-statistics. The first ten starter/reference pairs now teach their named methods:
+statistics. The first twelve starter/reference pairs now teach their named methods:
 training-only scaled KNN, weighted KNN, Gaussian Naive Bayes and Multinomial Naive
-Bayes, a Gini decision stump and a bounded recursive decision tree, a sigmoid neuron and a hidden-layer network, linear regression and validation-selected polynomial regression. The two KNN pairs have 20 independent checks; the two Naive Bayes pairs
+Bayes, a Gini decision stump and a bounded recursive decision tree, a sigmoid neuron and a hidden-layer network, linear regression and validation-selected polynomial regression, a linear-output neural regressor and a bounded hidden-layer regressor with L2 regularization. The two KNN pairs have 20 independent checks; the two Naive Bayes pairs
 have 19; the two decision-tree pairs have 24; the neural-network pairs have 24; the regression pairs have 24. Each repaired role includes its own fixed training/test data and a
 complete exercise with hand-worked expected results.
 
-The remaining 20 generated pairs still need algorithm-specific source repair and
+The remaining 18 generated pairs still need algorithm-specific source repair and
 verification. This inventory gate verifies source presence; it does not certify
 algorithm correctness or complete course/browser acceptance.
+
+## Supplied offline cores, 2026-11-16
+
+ML0-Offline-Data-Card records the actual garden fixture and environment;
+ML7-5-Offline-Evaluation-Contract freezes a grouped ticket evaluation plan;
+ML6-Offline-Housing-Comparison compares median, linear and neural models.
+ML-Offline-Case-Fixtures supplies the three promised authored CSV tables and
+their deterministic generator. All roles include their required inputs.
+
+The 34 root-level checks verify these cores and pairs 11/12, including
+training-only fitting, all neural gradients, validation-only model choice,
+bounded stopping, deterministic data, complete plots and native CLI exports.
+The prior 111 independent checks remain in their first ten pack folders.
+Historical Boston Housing files remain unchanged for the optional source audit.
+This scoped repair does not complete the remaining source or course review.

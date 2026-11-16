@@ -1,1 +1,9 @@
 *.sh text eol=lf
+# Authored offline fixture hashes refer to LF bytes on every checkout.
+ML-Offline-Case-Fixtures/*.csv text eol=lf
+ML0-Offline-Data-Card/*/data/*.csv text eol=lf
+ML7-5-Offline-Evaluation-Contract/*/data/*.csv text eol=lf
+ML6-Offline-Housing-Comparison/*/data/*.csv text eol=lf
+ML-11-*/*/data/*.csv text eol=lf
+ML-12-*/*/data/*.csv text eol=lf
+ML-Offline-Case-Fixtures/manifest.json text eol=lf
