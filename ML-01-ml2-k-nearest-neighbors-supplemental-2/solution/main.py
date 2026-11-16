@@ -1,49 +1,116 @@
 import csv
+import json
+import math
+from collections import Counter
 from pathlib import Path
 
-#################
-#   CONSTANTS   #
-#################
 
-DATA_FILE = Path("data/sample.csv")
-VALUE_FIELD = "value"
-COUNT_FIELD = "count"
-TOTAL_FIELD = "total"
-AVERAGE_FIELD = "average"
-EMPTY_AVERAGE = 0.0
-
-
-#################
-#   FUNCTIONS   #
-#################
-
-
-def load_values() -> list[int]:
-    """Load integer values from the sample CSV file"""
-    # Read the named value column from each CSV row
-    with DATA_FILE.open(newline="") as handle:
-        reader = csv.DictReader(handle)
-        return [int(row[VALUE_FIELD]) for row in reader]
+def _rows(points):
+    rows = [tuple(row) for row in points]
+    if not rows or not rows[0]:
+        raise ValueError("Provide at least one nonempty feature row")
+    width = len(rows[0])
+    for row in rows:
+        if len(row) != width or any(
+            isinstance(value, bool)
+            or not isinstance(value, (int, float))
+            or not math.isfinite(value)
+            for value in row
+        ):
+            raise ValueError("Feature rows must have equal width and finite numbers")
+    return rows
 
 
-def summarize(values: list[int]) -> dict[str, float]:
-    """Summarize the count total and average for the provided values"""
-    total = sum(values)
-    count = len(values)
+def nearest(points, labels, query, k):
+    """Return k distance/label pairs, using a declared coordinate/label tie rule."""
+    rows = _rows(points)
+    _rows([query])
+    if len(query) != len(rows[0]):
+        raise ValueError("Query width must match training features")
+    if len(labels) != len(rows) or any(
+        not isinstance(label, str) or not label for label in labels
+    ):
+        raise ValueError("Provide one nonempty text label per training row")
+    if isinstance(k, bool) or not isinstance(k, int) or not 1 <= k <= len(rows):
+        raise ValueError("k must be an integer from one to the training row count")
+    ranked = [
+        (math.dist(point, query), point, label)
+        for point, label in zip(rows, labels)
+    ]
+    if any(not math.isfinite(distance) for distance, _, _ in ranked):
+        raise ValueError("Distances must remain finite")
+    ranked.sort(key=lambda item: (item[0], item[1], item[2]))
+    return [(distance, label) for distance, _, label in ranked[:k]]
 
-    # Avoid division by zero when a dataset has no rows
-    average = total / count if count else EMPTY_AVERAGE
 
-    return {
-        COUNT_FIELD: count,
-        TOTAL_FIELD: total,
-        AVERAGE_FIELD: average,
+def load_fixture():
+    """Load the supplied fixed split relative to this file, from any directory."""
+    path = Path(__file__).resolve().parent / "data" / "sample.csv"
+    training, labels, held_out, expected = [], [], [], []
+    with path.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            point = (float(row["x"]), float(row["y"]))
+            if row["split"] == "train":
+                training.append(point)
+                labels.append(row["label"])
+            elif row["split"] == "test":
+                held_out.append(point)
+                expected.append(row["label"])
+            else:
+                raise ValueError("Unknown fixture split")
+    return training, labels, held_out, expected
+
+
+def fit_scale(training):
+    """Fit population means and scales using training rows only."""
+    rows = _rows(training)
+    means = [math.fsum(column) / len(rows) for column in zip(*rows)]
+    scales = [
+        math.sqrt(math.fsum((row[i] - mean) ** 2 for row in rows) / len(rows)) or 1.0
+        for i, mean in enumerate(means)
+    ]
+    return means, scales
+
+
+def transform(points, means, scales):
+    """Apply an already fitted scale; this operation never refits it."""
+    rows = _rows(points)
+    if len(means) != len(rows[0]) or len(scales) != len(means):
+        raise ValueError("Scale width must match feature rows")
+    if any(not math.isfinite(value) for value in means) or any(
+        not math.isfinite(value) or value <= 0 for value in scales
+    ):
+        raise ValueError("Scales must be finite and positive")
+    return [
+        tuple((value - mean) / scale for value, mean, scale in zip(row, means, scales))
+        for row in rows
+    ]
+
+
+def predict(points, labels, query, k=3):
+    """Classify by uniform vote; tied label totals use alphabetical order."""
+    votes = Counter(label for _, label in nearest(points, labels, query, k))
+    return min(votes, key=lambda label: (-votes[label], label))
+
+
+def main():
+    training, labels, held_out, expected = load_fixture()
+    means, scales = fit_scale(training)
+    fitted_training = transform(training, means, scales)
+    queries = transform(held_out, means, scales)
+    predictions = {
+        f"k{k}": [predict(fitted_training, labels, query, k) for query in queries]
+        for k in (1, 3)
     }
-
-
-def main() -> None:
-    """Print the summary for the sample dataset"""
-    print(summarize(load_values()))
+    result = {
+        "training_rows": len(training),
+        "test_rows": len(held_out),
+        "means": means,
+        "scales": [round(value, 6) for value in scales],
+        **predictions,
+        "accuracy_k3": sum(a == b for a, b in zip(predictions["k3"], expected)) / len(expected),
+    }
+    print(json.dumps(result, sort_keys=True))
 
 
 if __name__ == "__main__":
