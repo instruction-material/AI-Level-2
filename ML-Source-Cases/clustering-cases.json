@@ -1,0 +1,62 @@
+[
+  {
+    "number": 19,
+    "title": "Centroid updates and empty groups",
+    "todo": "centroid",
+    "experiment": "basic"
+  },
+  {
+    "number": 20,
+    "title": "Compare fixed k-means restarts",
+    "todo": "best_restart",
+    "experiment": "restarts"
+  },
+  {
+    "number": 21,
+    "title": "Describe clusters in input units",
+    "todo": "profile_clusters",
+    "experiment": "profiles"
+  },
+  {
+    "number": 22,
+    "title": "Compare partitions without matching label numbers",
+    "todo": "adjusted_rand",
+    "experiment": "stability"
+  },
+  {
+    "number": 23,
+    "title": "Choose k with silhouette evidence",
+    "todo": "silhouette",
+    "experiment": "choose_k"
+  },
+  {
+    "number": 24,
+    "title": "Check feature-unit sensitivity",
+    "todo": "fit_scale",
+    "experiment": "units"
+  },
+  {
+    "number": 25,
+    "title": "Parse and cluster supplied movie records",
+    "todo": "load_movies",
+    "experiment": "basic"
+  },
+  {
+    "number": 26,
+    "title": "Add nominal genre to movie geometry",
+    "todo": "one_hot",
+    "experiment": "genre"
+  },
+  {
+    "number": 27,
+    "title": "Compare linear and logarithmic gross features",
+    "todo": "numeric_features",
+    "experiment": "log"
+  },
+  {
+    "number": 28,
+    "title": "Assign a new movie with a frozen fit",
+    "todo": "assign",
+    "experiment": "frozen"
+  }
+]

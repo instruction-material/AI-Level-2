@@ -1,14 +1,3 @@
-# Applied Studio 16: Disney Movie Clustering supplemental 3
+# Assign a new movie with a frozen fit
 
-Course: Machine Learning
-Module: Applied Studio 16: Disney Movie Clustering supplemental 3
-
-Use the starter folder first. The starter is intentionally incomplete, and the solution shows one clean way to finish the same build after the student has worked through it.
-
-Suggested flow:
-- Read the module brief and identify the core requirement.
-- Complete the TODO markers in the starter implementation.
-- Test at least one custom case beyond the default example.
-- Compare against the solution only after the student has a working draft.
-
-Quick run hint: `python3 main.py`
+Open starter for the named implementation task, or solution for the complete worked reference. Each role contains its own inputs and execution instructions.
