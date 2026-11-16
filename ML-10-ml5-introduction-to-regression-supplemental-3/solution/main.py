@@ -1,49 +1,113 @@
 import csv
+import json
+import math
 from pathlib import Path
 
-#################
-#   CONSTANTS   #
-#################
-
-DATA_FILE = Path("data/sample.csv")
-VALUE_FIELD = "value"
-COUNT_FIELD = "count"
-TOTAL_FIELD = "total"
-AVERAGE_FIELD = "average"
-EMPTY_AVERAGE = 0.0
+DATA = Path(__file__).resolve().parent / "data"
 
 
-#################
-#   FUNCTIONS   #
-#################
+def finite(values):
+    if not values or any(
+        isinstance(value, bool) or not isinstance(value, (int, float))
+        or not math.isfinite(value) for value in values
+    ):
+        raise ValueError("Supply a nonempty sequence of finite numbers.")
 
 
-def load_values() -> list[int]:
-    """Load integer values from the sample CSV file"""
-    # Read the named value column from each CSV row
-    with DATA_FILE.open(newline="") as handle:
-        reader = csv.DictReader(handle)
-        return [int(row[VALUE_FIELD]) for row in reader]
+def paired(x_values, y_values):
+    finite(x_values)
+    finite(y_values)
+    if len(x_values) != len(y_values):
+        raise ValueError("Each x value needs exactly one target.")
 
 
-def summarize(values: list[int]) -> dict[str, float]:
-    """Summarize the count total and average for the provided values"""
-    total = sum(values)
-    count = len(values)
-
-    # Avoid division by zero when a dataset has no rows
-    average = total / count if count else EMPTY_AVERAGE
-
-    return {
-        COUNT_FIELD: count,
-        TOTAL_FIELD: total,
-        AVERAGE_FIELD: average,
-    }
+def mse(actual, predicted):
+    paired(actual, predicted)
+    return sum((a - b) ** 2 for a, b in zip(actual, predicted)) / len(actual)
 
 
-def main() -> None:
-    """Print the summary for the sample dataset"""
-    print(summarize(load_values()))
+def read_split(name):
+    with (DATA / name).open(newline="", encoding="utf-8") as handle:
+        rows = list(csv.DictReader(handle))
+    return [float(row["x"]) for row in rows], [float(row["target"]) for row in rows]
+
+
+def solve(matrix, target):
+    """Small dense Gaussian elimination with partial pivoting for this fixture."""
+    size = len(target)
+    augmented = [list(row) + [value] for row, value in zip(matrix, target)]
+    scale = max(1.0, max(abs(value) for row in matrix for value in row))
+    for column in range(size):
+        pivot = max(range(column, size), key=lambda row: abs(augmented[row][column]))
+        if abs(augmented[pivot][column]) <= 1e-12 * scale:
+            raise ValueError("Training design is rank-deficient or poorly scaled for this demo solver.")
+        augmented[column], augmented[pivot] = augmented[pivot], augmented[column]
+        divisor = augmented[column][column]
+        augmented[column] = [value / divisor for value in augmented[column]]
+        for row in range(size):
+            if row == column:
+                continue
+            multiple = augmented[row][column]
+            augmented[row] = [value - multiple * chosen
+                              for value, chosen in zip(augmented[row], augmented[column])]
+    result = [row[-1] for row in augmented]
+    finite(result)
+    return result
+
+
+def fit_polynomial(x_values, y_values, degree):
+    paired(x_values, y_values)
+    if type(degree) is not int or not 0 <= degree <= 2:
+        raise ValueError("This exercise supports degree 0, 1 or 2.")
+    if len(set(x_values)) < degree + 1:
+        raise ValueError("Need at least degree+1 distinct training x values.")
+    rows = [[x ** power for power in range(degree + 1)] for x in x_values]
+    matrix = [
+        [sum(row[i] * row[j] for row in rows) for j in range(degree + 1)]
+        for i in range(degree + 1)
+    ]
+    target = [sum(row[i] * y for row, y in zip(rows, y_values))
+              for i in range(degree + 1)]
+    return solve(matrix, target)
+
+
+def predict(coefficients, x_values):
+    finite(coefficients)
+    finite(x_values)
+    result = [sum(coefficient * x ** power for power, coefficient in enumerate(coefficients))
+              for x in x_values]
+    finite(result)
+    return result
+
+
+def choose_degree(train_x, train_y, validation_x, validation_y):
+    paired(validation_x, validation_y)
+    candidates = []
+    for degree in [1, 2]:
+        coefficients = fit_polynomial(train_x, train_y, degree)
+        error = mse(validation_y, predict(coefficients, validation_x))
+        candidates.append((error, degree, coefficients))
+    # An exact validation-loss tie chooses the simpler model.
+    error, degree, coefficients = min(candidates, key=lambda candidate: (candidate[0], candidate[1]))
+    return {"degree": degree, "coefficients": coefficients, "validation_mse": error}
+
+
+def main():
+    train_x, train_y = read_split("train.csv")
+    validation_x, validation_y = read_split("validation.csv")
+    chosen = choose_degree(train_x, train_y, validation_x, validation_y)
+    # Open the final test labels only after model selection.
+    test_x, test_y = read_split("test.csv")
+    predicted = predict(chosen["coefficients"], test_x)
+    print(json.dumps({
+        "training_rows": len(train_x), "validation_rows": len(validation_x), "test_rows": len(test_x),
+        "chosen_degree": chosen["degree"],
+        "coefficients": [round(value, 8) for value in chosen["coefficients"]],
+        "predictions": [round(value, 8) for value in predicted],
+        "validation_mse": round(chosen["validation_mse"], 12),
+        "test_mse": round(mse(test_y, predicted), 12),
+    }, sort_keys=True))
+
 
 
 if __name__ == "__main__":

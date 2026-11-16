@@ -1,49 +1,70 @@
 import csv
+import json
+import math
 from pathlib import Path
 
-#################
-#   CONSTANTS   #
-#################
-
-DATA_FILE = Path("data/sample.csv")
-VALUE_FIELD = "value"
-COUNT_FIELD = "count"
-TOTAL_FIELD = "total"
-AVERAGE_FIELD = "average"
-EMPTY_AVERAGE = 0.0
+DATA = Path(__file__).resolve().parent / "data"
 
 
-#################
-#   FUNCTIONS   #
-#################
+def finite(values):
+    if not values or any(
+        isinstance(value, bool) or not isinstance(value, (int, float))
+        or not math.isfinite(value) for value in values
+    ):
+        raise ValueError("Supply a nonempty sequence of finite numbers.")
 
 
-def load_values() -> list[int]:
-    """Load integer values from the sample CSV file"""
-    # Read the named value column from each CSV row
-    with DATA_FILE.open(newline="") as handle:
-        reader = csv.DictReader(handle)
-        return [int(row[VALUE_FIELD]) for row in reader]
+def paired(x_values, y_values):
+    finite(x_values)
+    finite(y_values)
+    if len(x_values) != len(y_values):
+        raise ValueError("Each x value needs exactly one target.")
 
 
-def summarize(values: list[int]) -> dict[str, float]:
-    """Summarize the count total and average for the provided values"""
-    total = sum(values)
-    count = len(values)
-
-    # Avoid division by zero when a dataset has no rows
-    average = total / count if count else EMPTY_AVERAGE
-
-    return {
-        COUNT_FIELD: count,
-        TOTAL_FIELD: total,
-        AVERAGE_FIELD: average,
-    }
+def mse(actual, predicted):
+    paired(actual, predicted)
+    return sum((a - b) ** 2 for a, b in zip(actual, predicted)) / len(actual)
 
 
-def main() -> None:
-    """Print the summary for the sample dataset"""
-    print(summarize(load_values()))
+def read_split(name):
+    with (DATA / name).open(newline="", encoding="utf-8") as handle:
+        rows = list(csv.DictReader(handle))
+    return [float(row["x"]) for row in rows], [float(row["target"]) for row in rows]
+
+
+def fit(x_values, y_values):
+    paired(x_values, y_values)
+    mean_x = sum(x_values) / len(x_values)
+    mean_y = sum(y_values) / len(y_values)
+    denominator = sum((x - mean_x) ** 2 for x in x_values)
+    slope = (
+        sum((x - mean_x) * (y - mean_y) for x, y in zip(x_values, y_values)) / denominator
+        if denominator else 0.0
+    )
+    intercept = mean_y - slope * mean_x
+    finite([slope, intercept])
+    return {"slope": slope, "intercept": intercept, "training_target_mean": mean_y}
+
+
+def predict(model, x_values):
+    finite(x_values)
+    result = [model["slope"] * x + model["intercept"] for x in x_values]
+    finite(result)
+    return result
+
+
+def main():
+    train_x, train_y = read_split("train.csv")
+    test_x, test_y = read_split("test.csv")
+    model = fit(train_x, train_y)
+    predicted = predict(model, test_x)
+    print(json.dumps({
+        "training_rows": len(train_x), "test_rows": len(test_x),
+        "slope": model["slope"], "intercept": model["intercept"],
+        "predictions": predicted, "test_mse": mse(test_y, predicted),
+        "baseline_mse": mse(test_y, [model["training_target_mean"]] * len(test_y)),
+    }, sort_keys=True))
+
 
 
 if __name__ == "__main__":
