@@ -1,0 +1,32 @@
+[
+  {
+    "folder": "ML-16-ml7-5-model-evaluation-comparison-and-dataset-strategy-supplemental-3",
+    "number": 16,
+    "title": "Grouped cross-validation with fitted preprocessing",
+    "todo": "group_folds"
+  },
+  {
+    "folder": "ML-17-ml8-master-project-supplemental-2",
+    "number": 17,
+    "title": "Capstone error slices and fixed feature corruption",
+    "todo": "error_slices"
+  },
+  {
+    "folder": "ML-29-applied-studio-17-knn-car-classification-supplemental-2",
+    "number": 29,
+    "title": "Categorical car ratings with training-only one-hot features",
+    "todo": "fit_encoding"
+  },
+  {
+    "folder": "ML-30-applied-studio-17-knn-car-classification-supplemental-3",
+    "number": 30,
+    "title": "Uniform and inverse-distance car neighbors",
+    "todo": "vote_neighbors"
+  },
+  {
+    "folder": "ML8-Offline-Model-Comparison",
+    "number": null,
+    "title": "Complete reproducible classification capstone",
+    "todo": "choose_candidate"
+  }
+]

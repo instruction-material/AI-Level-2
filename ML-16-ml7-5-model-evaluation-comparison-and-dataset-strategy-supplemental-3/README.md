@@ -1,14 +1,3 @@
-# ML7.5 Model Evaluation, Comparison, and Dataset Strategy supplemental 3
+# Grouped cross-validation with fitted preprocessing
 
-Course: Machine Learning
-Module: ML7.5 Model Evaluation, Comparison, and Dataset Strategy supplemental 3
-
-Use the starter folder first. The starter is intentionally incomplete, and the solution shows one clean way to finish the same build after the student has worked through it.
-
-Suggested flow:
-- Read the module brief and identify the core requirement.
-- Complete the TODO markers in the starter implementation.
-- Test at least one custom case beyond the default example.
-- Compare against the solution only after the student has a working draft.
-
-Quick run hint: `python3 main.py`
+Both roles contain their required inputs. Attempt the named task in starter before comparing the complete solution and its evaluation record.

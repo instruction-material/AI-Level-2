@@ -1,14 +1,3 @@
-# ML8 Master Project supplemental 2
+# Capstone error slices and fixed feature corruption
 
-Course: Machine Learning
-Module: ML8 Master Project supplemental 2
-
-Use the starter folder first. The starter is intentionally incomplete, and the solution shows one clean way to finish the same build after the student has worked through it.
-
-Suggested flow:
-- Read the module brief and identify the core requirement.
-- Complete the TODO markers in the starter implementation.
-- Test at least one custom case beyond the default example.
-- Compare against the solution only after the student has a working draft.
-
-Quick run hint: `python3 main.py`
+Both roles contain their required inputs. Attempt the named task in starter before comparing the complete solution and its evaluation record.

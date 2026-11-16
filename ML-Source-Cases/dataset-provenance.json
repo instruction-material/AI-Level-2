@@ -1,0 +1,25 @@
+{
+  "authored": {
+    "tokens": "Independent fictional sensor values with three labels and grouped variants",
+    "shop_visits": "Fictional non-personal visit measurements",
+    "energy": "Fictional quadratic numeric process with bounded noise",
+    "weather": "32 authored 12x12 weather-like RGB patterns; shared renderer,disjoint named families"
+  },
+  "retained_movie_table": {
+    "source": "ML1-Disney-Movie-Clustering-Updated/disney.csv",
+    "originalSHA256": "e3ebb5d02ca7748fbd8f061699ade1f1cb496fd3794f651b4ca11a85d6ce5ad3",
+    "licenseEstablishedByRetainedSource": false,
+    "adaptation": "LF normalization; deterministic bounded sample during execution; original records retained"
+  },
+  "car_evaluation": {
+    "source": "ML2-KNN-Car-Classification/cars.csv",
+    "originalSHA256": "8580f9b9dd279481bf8e7210299cad6b9d68ad8117085ceebf5600938e10fefa",
+    "creator": "Marko Bohanec",
+    "year": 1988,
+    "doi": "10.24432/C5JP48",
+    "license": "CC BY 4.0",
+    "primarySource": "https://archive.ics.uci.edu/dataset/19/car+evaluation",
+    "targetOrigin": "Hierarchical evaluation model;not measured vehicle safety outcomes",
+    "adaptation": "Retained course column names;LF normalization;fixed class-balanced sample during execution"
+  }
+}
