@@ -1,5 +1,8 @@
-label,value
-alpha,4
-beta,8
-gamma,11
-delta,17
+split,x,y,label
+train,0,0,A
+train,2,0,A
+train,3,0,B
+test,2.9,0,B
+test,0.1,0,A
+test,2.1,0,A
+test,3.5,0,B
