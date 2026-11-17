@@ -1,0 +1,68 @@
+[
+  {
+    "folder": "ML1-Customer-Segmentation-Updated",
+    "role": "solution",
+    "kind": "customer",
+    "exercise": null
+  },
+  {
+    "folder": "ML1-Customer-Segmentation",
+    "role": "solution",
+    "kind": "customer",
+    "exercise": null
+  },
+  {
+    "folder": "ML1-Customer-Segmentation-Starter-Updated",
+    "role": "starter",
+    "kind": "customer",
+    "exercise": "fit_kmeans"
+  },
+  {
+    "folder": "ML1-Customer-Segmentation-Starter",
+    "role": "starter",
+    "kind": "customer",
+    "exercise": "fit_kmeans"
+  },
+  {
+    "folder": "ML1-Customer-Segmentation-Interview-Starter",
+    "role": "starter",
+    "kind": "customer",
+    "exercise": "calculate_centroid"
+  },
+  {
+    "folder": "ML1-Disney-Movie-Clustering-Updated",
+    "role": "solution",
+    "kind": "movie",
+    "exercise": null
+  },
+  {
+    "folder": "ML1-Disney-Movie-Clustering",
+    "role": "solution",
+    "kind": "movie",
+    "exercise": null
+  },
+  {
+    "folder": "ML1-Disney-Movie-Clustering-Starter-Updated",
+    "role": "starter",
+    "kind": "movie",
+    "exercise": "fit_model"
+  },
+  {
+    "folder": "ML1-Disney-Movie-Clustering-Starter",
+    "role": "starter",
+    "kind": "movie",
+    "exercise": "fit_model"
+  },
+  {
+    "folder": "ML1-Flower-Clustering",
+    "role": "solution",
+    "kind": "iris",
+    "exercise": null
+  },
+  {
+    "folder": "ML1-Flower-Clustering-Starter",
+    "role": "starter",
+    "kind": "iris",
+    "exercise": "fit_model"
+  }
+]

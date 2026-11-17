@@ -22,3 +22,15 @@ for exact scope and the remaining site/whole-course review boundary.
 Each starter names a function to implement; its solution is a complete worked
 reference. Record the Python version, input checksum, split/group plan,
 preprocessing boundary and model-choice rule before interpreting a result.
+
+## Original clustering projects
+
+The retained ML1 customer, Disney and flower folders are standalone: each
+includes its own CSV, role-specific main.py and task notes. For their local
+library environment, create a Python 3.14 virtual environment and install
+requirements-ml-legacy.txt with pip --require-hashes. Run main.py from any
+directory; --output-dir chooses where the two plots and JSON report are saved.
+
+The verification environment uses requirements-ml-legacy-dev.txt.
+Run python -I -B ML-Legacy-Core-Contracts/test_clustering.py for the 13
+independent contracts and actual starter/reference execution checks.
