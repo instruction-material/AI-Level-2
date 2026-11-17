@@ -61,6 +61,9 @@ The displayed k is an example, not a statistically proved best number of groups.
 
 {"Customer labels describe the supplied observations, not real customer types." if kind == "customer" else "Flower species are used only for a post-fit diagnostic, never as fit features." if kind == "iris" else "Movie features are year and inflation-adjusted revenue, without causal claims."}
 """)
+    if folder == "ML1-Customer-Segmentation-Interview-Starter":
+        with (target / "README.md").open("a") as out:
+            out.write("\nThe saved PNGs preview the completed reference from ML1-Customer-Segmentation-Updated. Complete the missing centroid function before reproducing them locally.\n")
     projects.append({"folder": folder, "role": role, "kind": kind, "exercise": exercise})
 (HERE / "projects.json").write_text(json.dumps(projects, indent=2) + "\n")
 print(json.dumps({"standaloneAssignedFolders": len(projects)}))
