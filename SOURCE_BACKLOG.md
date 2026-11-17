@@ -71,9 +71,9 @@ IDE workflows remain separate from this source milestone.
 
 
 The complete hash-locked source-verification environment runs
-python -I -B ML-Source-Cases/run_tests.py for all 224 contracts, including the
+python -I -B ML-Source-Cases/run_tests.py for all 227 contracts, including the
 13 original-clustering library contracts. The --stdlib route retains the 209
-checks that require no third-party packages. Full CI always runs all 224.
+checks that require no third-party packages. Full CI always runs all 227.
 
 ## Original customer KNN vote counter, 2026-11-17
 
@@ -102,3 +102,15 @@ source is retained by an immutable audit link in its README. The actual program
 is checked against independently calculated class means, variances, priors,
 Gaussian log-density winner, confusion counts and macro F1. Other original
 classifier/car, evaluation and full teaching findings remain open.
+
+## Original categorical car roles, 2026-11-17
+
+The former whitespace-only updated-car source now has its actual CSV and a
+complete one-hot/KNN reference. Both older car roles use the same explicit
+training-only categorical pipeline; the starter has only the named fitting
+exercise missing. All three retain fixed k=7, a stratified split, a majority
+baseline and complete held-out metrics/split IDs. One-hot geometry, unknown
+vocabulary behavior, two real reference runs, completed starter and its intended
+initial stop are checked independently. Original CSV bytes and all earlier
+clustering/Gaussian/regression checks remain. The manual customer-classifier
+pipeline and complete teaching/workflow sign-off remain open.
