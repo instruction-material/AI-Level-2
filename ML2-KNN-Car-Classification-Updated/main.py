@@ -8,10 +8,11 @@ FEATURES = ["buying", "maintenance", "doors", "persons", "lug boot", "safety"]
 
 def fit_classifier(features, targets, neighbors=7):
     from sklearn.pipeline import Pipeline
+    from sklearn.compose import ColumnTransformer
     from sklearn.preprocessing import OneHotEncoder
     from sklearn.neighbors import KNeighborsClassifier
     pipeline = Pipeline([
-        ("encode", OneHotEncoder(handle_unknown="ignore", sparse_output=False)),
+        ("encode", ColumnTransformer([("categories", OneHotEncoder(handle_unknown="ignore", sparse_output=False), FEATURES)], remainder="drop")),
         ("neighbors", KNeighborsClassifier(n_neighbors=neighbors, weights="uniform")),
     ])
     pipeline.fit(features, targets)
@@ -19,8 +20,9 @@ def fit_classifier(features, targets, neighbors=7):
 
 
 def metrics(truth, predicted, labels):
-    from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
+    from sklearn.metrics import accuracy_score, balanced_accuracy_score, confusion_matrix, f1_score
     return {"accuracy": float(accuracy_score(truth, predicted)),
+            "balanced_accuracy": float(balanced_accuracy_score(truth, predicted)),
             "macro_f1": float(f1_score(truth, predicted, labels=labels, average="macro", zero_division=0)),
             "confusion_matrix": confusion_matrix(truth, predicted, labels=labels).tolist()}
 
@@ -52,7 +54,8 @@ def main():
     query = pd.DataFrame([["vhigh", "vhigh", "2", "2", "small", "low"]], columns=FEATURES)
     unknown = query.copy()
     unknown.loc[0, "buying"] = "unknown"
-    encoder = classifier.named_steps["encode"]
+    transformer = classifier.named_steps["encode"]
+    encoder = transformer.named_transformers_["categories"]
     report = {
         "dataset": source.name, "rows": len(frame), "features": FEATURES,
         "train_ids": train_ids.tolist(), "test_ids": test_ids.tolist(),
@@ -68,7 +71,7 @@ def main():
         "query": {"raw_features": query.iloc[0].to_dict(),
                   "prediction": str(classifier.predict(query)[0])},
         "unknown_probe": {"prediction": str(classifier.predict(unknown)[0]),
-                          "encoded": encoder.transform(unknown)[0].tolist()},
+                          "encoded": transformer.transform(unknown)[0].tolist()},
         "versions": {"numpy": np.__version__, "pandas": pd.__version__,
                      "scikit_learn": sklearn.__version__},
         "limitation": "The supplied acceptability target comes from an evaluation model; this demonstration does not measure real vehicle safety.",

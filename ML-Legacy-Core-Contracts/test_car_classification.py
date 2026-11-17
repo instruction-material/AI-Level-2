@@ -59,13 +59,14 @@ class OriginalCarContracts(unittest.TestCase):
                               ["high"] + ["same"] * 5, ["high"] + ["same"] * 5], columns=module.FEATURES)
         pipeline = module.fit_classifier(frame, ["A", "A", "B", "B"], neighbors=1)
         np.testing.assert_array_equal(pipeline.predict(frame.iloc[[0, 2]]), ["A", "B"])
-        encoder = pipeline.named_steps["encode"]
-        encoded = encoder.transform(frame)
+        transformer = pipeline.named_steps["encode"]
+        encoder = transformer.named_transformers_["categories"]
+        encoded = transformer.transform(frame)
         self.assertAlmostEqual(float(sum((encoded[0] - encoded[2]) ** 2)), 2)
         before = [row.copy() for row in encoder.categories_]
         unknown = frame.iloc[[0]].copy()
         unknown.loc[unknown.index[0], "buying"] = "unseen"
-        vector = encoder.transform(unknown)[0]
+        vector = transformer.transform(unknown)[0]
         self.assertEqual(vector[:2].tolist(), [0, 0])
         self.assertIn(pipeline.predict(unknown)[0], ["A", "B"])
         for a, b in zip(before, encoder.categories_):
@@ -132,6 +133,10 @@ class OriginalCarContracts(unittest.TestCase):
                     fn = sum(matrix[index]) - tp
                     f1.append(2 * tp / (2 * tp + fp + fn) if 2 * tp + fp + fn else 0)
                 self.assertAlmostEqual(report["metrics"]["macro_f1"], sum(f1) / len(labels), places=12)
+                recalls = [matrix[index][index] / sum(matrix[index])
+                           for index in range(len(labels)) if sum(matrix[index])]
+                self.assertAlmostEqual(report["metrics"]["balanced_accuracy"], sum(recalls) / len(recalls), places=12)
+                self.assertAlmostEqual(report["baseline_metrics"]["balanced_accuracy"], 0.25, places=12)
                 counts = Counter(data[index]["acceptability"] for index in train)
                 majority = max(sorted(counts), key=counts.get)
                 self.assertEqual(set(report["baseline_predictions"]), {majority})

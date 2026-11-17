@@ -1,9 +1,10 @@
 # Categorical car acceptability
 
-Complete fit_classifier. Return a fitted Pipeline with encode and neighbors steps. Fit a OneHotEncoder with handle_unknown="ignore" and sparse_output=False, followed by uniform KNeighborsClassifier with the supplied neighbor count.
+Complete fit_classifier. Return a fitted Pipeline with encode and neighbors steps. Fit a ColumnTransformer selecting the six FEATURES through a OneHotEncoder with handle_unknown="ignore" and sparse_output=False, followed by uniform KNeighborsClassifier with the supplied neighbor count.
 
 The fitting function uses Pipeline from sklearn.pipeline, OneHotEncoder from
-sklearn.preprocessing and KNeighborsClassifier from sklearn.neighbors. Its
+sklearn.preprocessing, ColumnTransformer from sklearn.compose, and
+KNeighborsClassifier from sklearn.neighbors. Its
 supplied neighbors parameter becomes n_neighbors.
 
 The supplied cars.csv has 1,728 rows and six categorical inputs. Preserve their
@@ -15,7 +16,8 @@ column; inspect the supplied unknown probe and the retained fitted vocabularies.
 
 The fixed stratified 75/25 split uses seed 100 and retains 1,296 training and 432
 test row IDs. Fit the assigned k=7 classifier and a training-majority dummy
-baseline. No k or model is chosen from test scores. Report accuracy, macro F1
+baseline. No k or model is chosen from test scores. Report accuracy,
+balanced accuracy, macro F1
 and confusion matrices in the recorded label order, with actual rows and
 predicted columns. Keep the training order and package versions for reproduction.
 A different model-selection experiment needs its own validation design.
