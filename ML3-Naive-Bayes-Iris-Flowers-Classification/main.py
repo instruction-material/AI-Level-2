@@ -4,15 +4,18 @@ Dataset: https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/6393
 Use scikit-learn to build a Naive Bayes classifier for the type of species a flower is. Then run your classifier on some test data to determine its accuracy.
 """
 
+from pathlib import Path
+
 import pandas as pd
-from sklearn.metrics import accuracy_score
+from sklearn.dummy import DummyClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
 from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import GaussianNB
 
 # Dataset: https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/639388c2cbc2120a14dcf466e85730eb8be498bb/iris.csv
 
 # read in data
-data = pd.read_csv('iris.csv')
+data = pd.read_csv(Path(__file__).resolve().with_name('iris.csv'))
 
 # build feature vectors(X) and label(y) for each vector
 X = data.drop("species", axis=1)
@@ -29,16 +32,30 @@ y = y.to_numpy()
 
 # split into testing and training data
 x_train, x_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.25, random_state=42
+    X, y, test_size=0.25, random_state=42, stratify=y
 )
 
 # create and train Naive Bayes classifier
-model = MultinomialNB()
+model = GaussianNB(var_smoothing=1e-9)
 model.fit(x_train, y_train)
 
-# run classifier on the training data and check accuracy
+# run the fixed classifier on held-out test data
 y_pred = model.predict(x_test)
 print("Accuracy: " + str(accuracy_score(y_test, y_pred) * 100) + " %")
+macro_f1 = f1_score(y_test, y_pred, average="macro")
+class_labels = model.classes_
+matrix = confusion_matrix(y_test, y_pred, labels=class_labels)
+print("GaussianNB macro F1: " + str(macro_f1))
+print("Confusion matrix (actual rows, predicted columns):")
+print(class_labels)
+print(matrix)
+
+# Fit the majority baseline on the same training observations only.
+baseline = DummyClassifier(strategy="most_frequent")
+baseline.fit(x_train, y_train)
+baseline_predictions = baseline.predict(x_test)
+print("Dummy accuracy: " + str(accuracy_score(y_test, baseline_predictions) * 100) + " %")
+print("Dummy macro F1: " + str(f1_score(y_test, baseline_predictions, average="macro")))
 print()
 
 # run classifier on your own feature vectors
