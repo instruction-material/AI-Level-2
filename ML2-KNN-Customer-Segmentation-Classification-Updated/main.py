@@ -155,7 +155,7 @@ max_label = -1
 max_count = -1
 for key in k2_neighbors_count:
     if k2_neighbors_count[key] > max_count:
-        max_count = k2_neighbors_count
+        max_count = k2_neighbors_count[key]
         max_label = key
 
 print(str(data_pt) + " is classified as part of cluster " + str(max_label))

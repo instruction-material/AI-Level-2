@@ -71,6 +71,14 @@ IDE workflows remain separate from this source milestone.
 
 
 The complete hash-locked source-verification environment runs
-python -I -B ML-Source-Cases/run_tests.py for all 221 contracts, including the
-13 original-clustering library contracts. The --stdlib route retains the 208
-checks that require no third-party packages. Full CI always runs all 221.
+python -I -B ML-Source-Cases/run_tests.py for all 222 contracts, including the
+13 original-clustering library contracts. The --stdlib route retains the 209
+checks that require no third-party packages. Full CI always runs all 222.
+
+## Original customer KNN vote counter, 2026-11-17
+
+The updated classifier now retains the numeric winning vote count. Its actual
+voting tail is executed on four independently specified majority/tie cases;
+replacing the fix with the old dictionary assignment reproduces TypeError.
+This check does not execute the preceding clustering pipeline. Its unscaled,
+unbounded clustering and other original ML2/ML3/ML5 repairs remain open.
