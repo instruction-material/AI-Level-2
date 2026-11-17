@@ -51,6 +51,7 @@ Canonical source repository: `AI-Level-2`
 | `ML-Simple-Polynomial-Regression-Starter-Updated` |
 | `ML-Simple-Polynomial-Regression-Updated` |
 | `ML-Source-Cases` |
+| `ML-Legacy-Core-Contracts` |
 | `ML0-Offline-Data-Card` |
 | `ML1-Customer-Segmentation` |
 | `ML1-Customer-Segmentation-Interview-Starter` |
@@ -85,17 +86,17 @@ Canonical source repository: `AI-Level-2`
 
 ## Source Inventory
 
-- Active top-level project, fixture and support folders: 66
+- Active top-level project, fixture and support folders: 67
 - Top-level archive container: 1
 - Retained folders inside the archive: 4
-- Source-like files: 288
+- Source-like files: 303
 
 ML-Source-Cases is shared generator/reference/verification support, not a separately assigned learner project. Every role project contains its own required model and inputs.
 
 ## Independent algorithm and execution checks
 
-Run python3 -I -B ML-Source-Cases/run_tests.py from the repository root.
-All 208 independent contracts cover the existing 145 checks plus 63 new checks
+Run python3 -I -B ML-Source-Cases/run_tests.py --stdlib from the repository root.
+The 208 standard-library contracts cover the existing 145 checks plus 63 new checks
 for the remaining eighteen source pairs and the complete image/capstone cores.
 
 The thirty generated supplemental pairs now contain distinct named methods and
@@ -115,3 +116,18 @@ This source milestone does not certify complete teaching coverage, original
 legacy project correctness, hosted IDE imports or site/public activation.
 Preserved historical folders and archived notebooks remain separate review
 inputs. Keep source, browser, whole-course and delivery acceptance distinct.
+
+## Original ML1 clustering verification
+
+ML-Legacy-Core-Contracts is source-template and independent verification support.
+Its project list binds eleven original assigned folders, including the focused
+centroid interview scaffold. All retain their own original CSV. Run its
+test_clustering.py in the hash-locked verification environment for 13 additional
+contracts and actual worked-reference/completed-starter executions. The hosted
+workflow retains both dependency audits and the separate original-source proof.
+
+
+The complete hash-locked source-verification environment runs
+python -I -B ML-Source-Cases/run_tests.py for all 221 contracts, including the
+13 original-clustering library contracts. The --stdlib route retains the 208
+checks that require no third-party packages. Full CI always runs all 221.
