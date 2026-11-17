@@ -114,3 +114,9 @@ vocabulary behavior, two real reference runs, completed starter and its intended
 initial stop are checked independently. Original CSV bytes and all earlier
 clustering/Gaussian/regression checks remain. The manual customer-classifier
 pipeline and complete teaching/workflow sign-off remain open.
+
+## Current library role alignment, 2026-11-17
+
+Seven self-contained named-fitting role pairs now supply the remaining classifier and regression projects under ML-Library-Workspaces. Their original CSVs, reference provenance and runtime lock remain explicit. The country-year comparison completes regularization, frozen final-test comparisons, training-defined year/missingness slices and country-block resampling evidence. Existing original sources remain unchanged.
+
+The full gate now contains 257 contracts, including fourteen new independent role/model contracts and twenty-one actual program executions. Site curriculum mappings, consented IDE import/save/reopen/export and whole-course acceptance remain separate delivery work.

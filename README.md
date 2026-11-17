@@ -37,6 +37,14 @@ independent contracts and actual starter/reference execution checks.
 
 
 The complete hash-locked source-verification environment runs
-python -I -B ML-Source-Cases/run_tests.py for all 221 contracts, including the
+python -I -B ML-Source-Cases/run_tests.py for all 257 contracts, including the
 13 original-clustering library contracts. The --stdlib route retains the 208
-checks that require no third-party packages. Full CI always runs all 221.
+checks that require no third-party packages. Full CI always runs all 257.
+
+## Assigned classifier and regression library workspaces
+
+ML-Library-Workspaces contains seven complete starter/solution pairs for customer KNN, categorical car neighbors, Gaussian Iris, fictional email, linear regression, polynomial regression and country-year regression. Each exported role includes main.py, its named exercise.py fitting task, the exact runtime lock, source notes and any required local CSV. Original project folders remain intact.
+
+The country-year role adds the assigned fixed Ridge comparison, two error-slice dimensions and conditional country-block resampling evidence. Its model choice is frozen on validation before both candidates are evaluated on final test rows.
+
+Run python -I -B ML-Legacy-Core-Contracts/test_library_workspaces.py in the locked verification environment for fourteen independent source contracts and twenty-one actual reference, unfinished-learner and completed-learner program executions.

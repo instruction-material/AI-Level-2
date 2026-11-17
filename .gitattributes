@@ -15,3 +15,6 @@ ML-30-*/**/*.csv text eol=lf
 ML-Source-Cases/**/*.csv text eol=lf
 ML7-Offline-Weather-Classifier/**/*.csv text eol=lf
 ML8-Offline-Model-Comparison/**/*.csv text eol=lf
+
+# Self-contained current classifier and regression role data.
+ML-Library-Workspaces/**/*.csv text eol=lf

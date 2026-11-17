@@ -1,0 +1,671 @@
+{
+  "schemaVersion": 1,
+  "originalSourceRevision": "7c7ee0ccee9967b38cb0a0fa4a22c6621b7c7a9b",
+  "runtime": "Python 3.14 with the supplied hash-locked scikit-learn/pandas/matplotlib graph",
+  "projects": 7,
+  "roles": 14,
+  "resources": [
+    {
+      "project": "customer-neighbors",
+      "title": "Customer segment imitation with KNN",
+      "role": "starter",
+      "taskFile": "exercise.py",
+      "taskFunction": "fit_classifier",
+      "originalFolder": "ML2-KNN-Customer-Segmentation-Classification-Updated",
+      "folder": "ML-Library-Workspaces/customer-neighbors/starter",
+      "dataset": "customers.csv",
+      "command": "python main.py --output-dir output",
+      "files": [
+        {
+          "name": "README.md",
+          "path": "ML-Library-Workspaces/customer-neighbors/starter/README.md",
+          "byteLength": 1918,
+          "sha256": "b0559479eb1ac3c230d56e4b216c9cf818467ec139abb763e06f038d126a1152"
+        },
+        {
+          "name": "SOURCES.md",
+          "path": "ML-Library-Workspaces/customer-neighbors/starter/SOURCES.md",
+          "byteLength": 616,
+          "sha256": "b27e60d917adb5a680abe9e7a515b8650cdfe1e3b375abb6bcc0b8c0b7de13b5"
+        },
+        {
+          "name": "customers.csv",
+          "path": "ML-Library-Workspaces/customer-neighbors/starter/customers.csv",
+          "byteLength": 4073,
+          "sha256": "edb148cc30d66d1f528904ae7cd067ca77c16056643b0a8e60a551fcf2c5fa7a"
+        },
+        {
+          "name": "exercise.py",
+          "path": "ML-Library-Workspaces/customer-neighbors/starter/exercise.py",
+          "byteLength": 176,
+          "sha256": "d9f47414179e93fdbcfbc6a8ca353aeda47e7a37e1ab1cdb151d59a3aeceaeef"
+        },
+        {
+          "name": "main.py",
+          "path": "ML-Library-Workspaces/customer-neighbors/starter/main.py",
+          "byteLength": 6779,
+          "sha256": "1baaf6317e69f658841ad7f896543926cb49b0afad21344b795376c1ec63e13b"
+        },
+        {
+          "name": "requirements.txt",
+          "path": "ML-Library-Workspaces/customer-neighbors/starter/requirements.txt",
+          "byteLength": 56235,
+          "sha256": "1c6ca42e13eb0ae74bda741fd45ffb7f9eceb8999e6c4d8c5f6aac13854cac74"
+        }
+      ]
+    },
+    {
+      "project": "customer-neighbors",
+      "title": "Customer segment imitation with KNN",
+      "role": "solution",
+      "taskFile": "exercise.py",
+      "taskFunction": "fit_classifier",
+      "originalFolder": "ML2-KNN-Customer-Segmentation-Classification-Updated",
+      "folder": "ML-Library-Workspaces/customer-neighbors/solution",
+      "dataset": "customers.csv",
+      "command": "python main.py --output-dir output",
+      "files": [
+        {
+          "name": "README.md",
+          "path": "ML-Library-Workspaces/customer-neighbors/solution/README.md",
+          "byteLength": 1885,
+          "sha256": "d74092dd2b343f25379fba9caa1e1c375331780a378bcb10c2c3d0769445d26f"
+        },
+        {
+          "name": "SOURCES.md",
+          "path": "ML-Library-Workspaces/customer-neighbors/solution/SOURCES.md",
+          "byteLength": 616,
+          "sha256": "b27e60d917adb5a680abe9e7a515b8650cdfe1e3b375abb6bcc0b8c0b7de13b5"
+        },
+        {
+          "name": "customers.csv",
+          "path": "ML-Library-Workspaces/customer-neighbors/solution/customers.csv",
+          "byteLength": 4073,
+          "sha256": "edb148cc30d66d1f528904ae7cd067ca77c16056643b0a8e60a551fcf2c5fa7a"
+        },
+        {
+          "name": "exercise.py",
+          "path": "ML-Library-Workspaces/customer-neighbors/solution/exercise.py",
+          "byteLength": 378,
+          "sha256": "d8371c4c7a010c0cc01a9d63ccd390019628bd0eb4b2c2459c9c42f90c542bd0"
+        },
+        {
+          "name": "main.py",
+          "path": "ML-Library-Workspaces/customer-neighbors/solution/main.py",
+          "byteLength": 6779,
+          "sha256": "1baaf6317e69f658841ad7f896543926cb49b0afad21344b795376c1ec63e13b"
+        },
+        {
+          "name": "requirements.txt",
+          "path": "ML-Library-Workspaces/customer-neighbors/solution/requirements.txt",
+          "byteLength": 56235,
+          "sha256": "1c6ca42e13eb0ae74bda741fd45ffb7f9eceb8999e6c4d8c5f6aac13854cac74"
+        }
+      ]
+    },
+    {
+      "project": "car-neighbors",
+      "title": "Categorical car acceptability",
+      "role": "starter",
+      "taskFile": "exercise.py",
+      "taskFunction": "fit_classifier",
+      "originalFolder": "ML2-KNN-Car-Classification",
+      "folder": "ML-Library-Workspaces/car-neighbors/starter",
+      "dataset": "cars.csv",
+      "command": "python main.py --output-dir output",
+      "files": [
+        {
+          "name": "README.md",
+          "path": "ML-Library-Workspaces/car-neighbors/starter/README.md",
+          "byteLength": 2004,
+          "sha256": "48b8e20fcfab4295ff09c8c8da8492c7caf450750a4ca85e5c12767bac688a4b"
+        },
+        {
+          "name": "SOURCES.md",
+          "path": "ML-Library-Workspaces/car-neighbors/starter/SOURCES.md",
+          "byteLength": 590,
+          "sha256": "1c28d752664460b3cdc91e7879d94fd1a8ed52e1739b254ab1a820ae90a3a6c6"
+        },
+        {
+          "name": "cars.csv",
+          "path": "ML-Library-Workspaces/car-neighbors/starter/cars.csv",
+          "byteLength": 51929,
+          "sha256": "e7e728c464143f9eaaebd18915e88546e6b7d0c9cb37d8c0bd6b6ec3d192e3f5"
+        },
+        {
+          "name": "exercise.py",
+          "path": "ML-Library-Workspaces/car-neighbors/starter/exercise.py",
+          "byteLength": 256,
+          "sha256": "98b1b954a23dd6de82479af61dbb70c65c107bb0e01d7432987f714a96b99e63"
+        },
+        {
+          "name": "main.py",
+          "path": "ML-Library-Workspaces/car-neighbors/starter/main.py",
+          "byteLength": 4011,
+          "sha256": "d65994781f438f99c9a3fb5591f7ba78ba912efe8e86a91e72e33b40bfeb2704"
+        },
+        {
+          "name": "requirements.txt",
+          "path": "ML-Library-Workspaces/car-neighbors/starter/requirements.txt",
+          "byteLength": 56235,
+          "sha256": "1c6ca42e13eb0ae74bda741fd45ffb7f9eceb8999e6c4d8c5f6aac13854cac74"
+        }
+      ]
+    },
+    {
+      "project": "car-neighbors",
+      "title": "Categorical car acceptability",
+      "role": "solution",
+      "taskFile": "exercise.py",
+      "taskFunction": "fit_classifier",
+      "originalFolder": "ML2-KNN-Car-Classification",
+      "folder": "ML-Library-Workspaces/car-neighbors/solution",
+      "dataset": "cars.csv",
+      "command": "python main.py --output-dir output",
+      "files": [
+        {
+          "name": "README.md",
+          "path": "ML-Library-Workspaces/car-neighbors/solution/README.md",
+          "byteLength": 1971,
+          "sha256": "35e6cbc6f04c577cd858414e1409f5ad5cedc27bb4b2706467784f156801de47"
+        },
+        {
+          "name": "SOURCES.md",
+          "path": "ML-Library-Workspaces/car-neighbors/solution/SOURCES.md",
+          "byteLength": 590,
+          "sha256": "1c28d752664460b3cdc91e7879d94fd1a8ed52e1739b254ab1a820ae90a3a6c6"
+        },
+        {
+          "name": "cars.csv",
+          "path": "ML-Library-Workspaces/car-neighbors/solution/cars.csv",
+          "byteLength": 51929,
+          "sha256": "e7e728c464143f9eaaebd18915e88546e6b7d0c9cb37d8c0bd6b6ec3d192e3f5"
+        },
+        {
+          "name": "exercise.py",
+          "path": "ML-Library-Workspaces/car-neighbors/solution/exercise.py",
+          "byteLength": 653,
+          "sha256": "69655e4ef375544be03003892dab8f8726c0ece90129228d26292f872b4684e8"
+        },
+        {
+          "name": "main.py",
+          "path": "ML-Library-Workspaces/car-neighbors/solution/main.py",
+          "byteLength": 4011,
+          "sha256": "d65994781f438f99c9a3fb5591f7ba78ba912efe8e86a91e72e33b40bfeb2704"
+        },
+        {
+          "name": "requirements.txt",
+          "path": "ML-Library-Workspaces/car-neighbors/solution/requirements.txt",
+          "byteLength": 56235,
+          "sha256": "1c6ca42e13eb0ae74bda741fd45ffb7f9eceb8999e6c4d8c5f6aac13854cac74"
+        }
+      ]
+    },
+    {
+      "project": "iris-naive-bayes",
+      "title": "Gaussian Naive Bayes on Iris",
+      "role": "starter",
+      "taskFile": "exercise.py",
+      "taskFunction": "fit_classifier",
+      "originalFolder": "ML3-Naive-Bayes-Iris-Flowers-Classification",
+      "folder": "ML-Library-Workspaces/iris-naive-bayes/starter",
+      "dataset": "iris.csv",
+      "command": "python main.py",
+      "files": [
+        {
+          "name": "README.md",
+          "path": "ML-Library-Workspaces/iris-naive-bayes/starter/README.md",
+          "byteLength": 1657,
+          "sha256": "3e6905a25c4535fc4d97914b8a9762fd2fc68222f45d53841a087f449049c804"
+        },
+        {
+          "name": "SOURCES.md",
+          "path": "ML-Library-Workspaces/iris-naive-bayes/starter/SOURCES.md",
+          "byteLength": 607,
+          "sha256": "57208712207613b974f8586d55f633efca4236c635902e00d6d1600e9f0ca30f"
+        },
+        {
+          "name": "exercise.py",
+          "path": "ML-Library-Workspaces/iris-naive-bayes/starter/exercise.py",
+          "byteLength": 163,
+          "sha256": "ee71c5cfee3f7ccad3a7df579af3134114744b653805487fef432bbc5e2f7818"
+        },
+        {
+          "name": "iris.csv",
+          "path": "ML-Library-Workspaces/iris-naive-bayes/starter/iris.csv",
+          "byteLength": 3857,
+          "sha256": "cb2bd2048ef9fefb625e2a472742f76740e479227647a790782189d76e4fe0ae"
+        },
+        {
+          "name": "main.py",
+          "path": "ML-Library-Workspaces/iris-naive-bayes/starter/main.py",
+          "byteLength": 2362,
+          "sha256": "c5a4ef6ae8e7e109f41b968faf29ca075f1874593e66d75c98eb19188c4dfe22"
+        },
+        {
+          "name": "requirements.txt",
+          "path": "ML-Library-Workspaces/iris-naive-bayes/starter/requirements.txt",
+          "byteLength": 56235,
+          "sha256": "1c6ca42e13eb0ae74bda741fd45ffb7f9eceb8999e6c4d8c5f6aac13854cac74"
+        }
+      ]
+    },
+    {
+      "project": "iris-naive-bayes",
+      "title": "Gaussian Naive Bayes on Iris",
+      "role": "solution",
+      "taskFile": "exercise.py",
+      "taskFunction": "fit_classifier",
+      "originalFolder": "ML3-Naive-Bayes-Iris-Flowers-Classification",
+      "folder": "ML-Library-Workspaces/iris-naive-bayes/solution",
+      "dataset": "iris.csv",
+      "command": "python main.py",
+      "files": [
+        {
+          "name": "README.md",
+          "path": "ML-Library-Workspaces/iris-naive-bayes/solution/README.md",
+          "byteLength": 1624,
+          "sha256": "eda1935afde00f125b3cd841233c884c6ee5406b2a6aabe568a549d6f11b57a6"
+        },
+        {
+          "name": "SOURCES.md",
+          "path": "ML-Library-Workspaces/iris-naive-bayes/solution/SOURCES.md",
+          "byteLength": 607,
+          "sha256": "57208712207613b974f8586d55f633efca4236c635902e00d6d1600e9f0ca30f"
+        },
+        {
+          "name": "exercise.py",
+          "path": "ML-Library-Workspaces/iris-naive-bayes/solution/exercise.py",
+          "byteLength": 151,
+          "sha256": "da65a1f1bbd68024d9760dc26766a1d0689a47a19cd900eee0c097c2cf124a3d"
+        },
+        {
+          "name": "iris.csv",
+          "path": "ML-Library-Workspaces/iris-naive-bayes/solution/iris.csv",
+          "byteLength": 3857,
+          "sha256": "cb2bd2048ef9fefb625e2a472742f76740e479227647a790782189d76e4fe0ae"
+        },
+        {
+          "name": "main.py",
+          "path": "ML-Library-Workspaces/iris-naive-bayes/solution/main.py",
+          "byteLength": 2362,
+          "sha256": "c5a4ef6ae8e7e109f41b968faf29ca075f1874593e66d75c98eb19188c4dfe22"
+        },
+        {
+          "name": "requirements.txt",
+          "path": "ML-Library-Workspaces/iris-naive-bayes/solution/requirements.txt",
+          "byteLength": 56235,
+          "sha256": "1c6ca42e13eb0ae74bda741fd45ffb7f9eceb8999e6c4d8c5f6aac13854cac74"
+        }
+      ]
+    },
+    {
+      "project": "email-naive-bayes",
+      "title": "Fictional email classification",
+      "role": "starter",
+      "taskFile": "exercise.py",
+      "taskFunction": "fit_pipeline",
+      "originalFolder": "ML3-Email-Spam-Classification",
+      "folder": "ML-Library-Workspaces/email-naive-bayes/starter",
+      "dataset": "fictional-emails.csv",
+      "command": "python main.py --output-dir output",
+      "files": [
+        {
+          "name": "README.md",
+          "path": "ML-Library-Workspaces/email-naive-bayes/starter/README.md",
+          "byteLength": 1911,
+          "sha256": "2ba0ce8137bda26266b0dbf4261b96c574aab6a58cc6754a4322a6ed2c06ee2d"
+        },
+        {
+          "name": "SOURCES.md",
+          "path": "ML-Library-Workspaces/email-naive-bayes/starter/SOURCES.md",
+          "byteLength": 593,
+          "sha256": "a9e5c402d53f10918234d10d9d9518d804393c9e82043e714d34bb55e33a087c"
+        },
+        {
+          "name": "exercise.py",
+          "path": "ML-Library-Workspaces/email-naive-bayes/starter/exercise.py",
+          "byteLength": 173,
+          "sha256": "2e97ba16f2b8be2fe08d66c098d9888e93abc91d55a2b53f81060bdc2c854131"
+        },
+        {
+          "name": "fictional-emails.csv",
+          "path": "ML-Library-Workspaces/email-naive-bayes/starter/fictional-emails.csv",
+          "byteLength": 3803,
+          "sha256": "0f84aac863618f5df1b56981aeae762db75d7f4e8d7f364c9481171282ee9525"
+        },
+        {
+          "name": "main.py",
+          "path": "ML-Library-Workspaces/email-naive-bayes/starter/main.py",
+          "byteLength": 5000,
+          "sha256": "d4c268daa9f5f24ce7100b1d253a22b59ab32f2ad767196e50d4ea7141e287bf"
+        },
+        {
+          "name": "requirements.txt",
+          "path": "ML-Library-Workspaces/email-naive-bayes/starter/requirements.txt",
+          "byteLength": 56235,
+          "sha256": "1c6ca42e13eb0ae74bda741fd45ffb7f9eceb8999e6c4d8c5f6aac13854cac74"
+        }
+      ]
+    },
+    {
+      "project": "email-naive-bayes",
+      "title": "Fictional email classification",
+      "role": "solution",
+      "taskFile": "exercise.py",
+      "taskFunction": "fit_pipeline",
+      "originalFolder": "ML3-Email-Spam-Classification",
+      "folder": "ML-Library-Workspaces/email-naive-bayes/solution",
+      "dataset": "fictional-emails.csv",
+      "command": "python main.py --output-dir output",
+      "files": [
+        {
+          "name": "README.md",
+          "path": "ML-Library-Workspaces/email-naive-bayes/solution/README.md",
+          "byteLength": 1878,
+          "sha256": "fc34e15451641addca8cf1af13e20b120cc05146a883b32b3c4150f110ce9386"
+        },
+        {
+          "name": "SOURCES.md",
+          "path": "ML-Library-Workspaces/email-naive-bayes/solution/SOURCES.md",
+          "byteLength": 593,
+          "sha256": "a9e5c402d53f10918234d10d9d9518d804393c9e82043e714d34bb55e33a087c"
+        },
+        {
+          "name": "exercise.py",
+          "path": "ML-Library-Workspaces/email-naive-bayes/solution/exercise.py",
+          "byteLength": 399,
+          "sha256": "cc4e505ae95aba92ce70d7b9a39d4841e6f6be2ca3c8591be1f1b3307cd97901"
+        },
+        {
+          "name": "fictional-emails.csv",
+          "path": "ML-Library-Workspaces/email-naive-bayes/solution/fictional-emails.csv",
+          "byteLength": 3803,
+          "sha256": "0f84aac863618f5df1b56981aeae762db75d7f4e8d7f364c9481171282ee9525"
+        },
+        {
+          "name": "main.py",
+          "path": "ML-Library-Workspaces/email-naive-bayes/solution/main.py",
+          "byteLength": 5000,
+          "sha256": "d4c268daa9f5f24ce7100b1d253a22b59ab32f2ad767196e50d4ea7141e287bf"
+        },
+        {
+          "name": "requirements.txt",
+          "path": "ML-Library-Workspaces/email-naive-bayes/solution/requirements.txt",
+          "byteLength": 56235,
+          "sha256": "1c6ca42e13eb0ae74bda741fd45ffb7f9eceb8999e6c4d8c5f6aac13854cac74"
+        }
+      ]
+    },
+    {
+      "project": "linear-regression",
+      "title": "Linear regression on ten supplied points",
+      "role": "starter",
+      "taskFile": "exercise.py",
+      "taskFunction": "fit_model",
+      "originalFolder": "ML-Simple-Linear-Regression-Updated",
+      "folder": "ML-Library-Workspaces/linear-regression/starter",
+      "dataset": null,
+      "command": "python main.py",
+      "files": [
+        {
+          "name": "README.md",
+          "path": "ML-Library-Workspaces/linear-regression/starter/README.md",
+          "byteLength": 1690,
+          "sha256": "d2c1470d0c097b764376f01b9f0ac854546b1bfc4cd94fc648defdcbb22a8459"
+        },
+        {
+          "name": "SOURCES.md",
+          "path": "ML-Library-Workspaces/linear-regression/starter/SOURCES.md",
+          "byteLength": 517,
+          "sha256": "868eddfe11d75b39f7cf5e68d075aed9fba249160d4b6b63c4d6f3e38d8074c4"
+        },
+        {
+          "name": "exercise.py",
+          "path": "ML-Library-Workspaces/linear-regression/starter/exercise.py",
+          "byteLength": 153,
+          "sha256": "604afc5d0fe5a6a10d96e25529c4244274e0b85479581d717b2e9cbdb43fb7c0"
+        },
+        {
+          "name": "main.py",
+          "path": "ML-Library-Workspaces/linear-regression/starter/main.py",
+          "byteLength": 852,
+          "sha256": "7312fab4091a484c6a6d65d26503f9a143e2bc6de481890fd5e6d36d2027f541"
+        },
+        {
+          "name": "requirements.txt",
+          "path": "ML-Library-Workspaces/linear-regression/starter/requirements.txt",
+          "byteLength": 56235,
+          "sha256": "1c6ca42e13eb0ae74bda741fd45ffb7f9eceb8999e6c4d8c5f6aac13854cac74"
+        }
+      ]
+    },
+    {
+      "project": "linear-regression",
+      "title": "Linear regression on ten supplied points",
+      "role": "solution",
+      "taskFile": "exercise.py",
+      "taskFunction": "fit_model",
+      "originalFolder": "ML-Simple-Linear-Regression-Updated",
+      "folder": "ML-Library-Workspaces/linear-regression/solution",
+      "dataset": null,
+      "command": "python main.py",
+      "files": [
+        {
+          "name": "README.md",
+          "path": "ML-Library-Workspaces/linear-regression/solution/README.md",
+          "byteLength": 1657,
+          "sha256": "cdbf136c029fc681218cd389bb626a2e3c13283fcea0038a32917d4c56dfd17f"
+        },
+        {
+          "name": "SOURCES.md",
+          "path": "ML-Library-Workspaces/linear-regression/solution/SOURCES.md",
+          "byteLength": 517,
+          "sha256": "868eddfe11d75b39f7cf5e68d075aed9fba249160d4b6b63c4d6f3e38d8074c4"
+        },
+        {
+          "name": "exercise.py",
+          "path": "ML-Library-Workspaces/linear-regression/solution/exercise.py",
+          "byteLength": 141,
+          "sha256": "0674f9aba922a282ae5d83427b50c1dd2dd1ec2969b5287dd052a25545b14647"
+        },
+        {
+          "name": "main.py",
+          "path": "ML-Library-Workspaces/linear-regression/solution/main.py",
+          "byteLength": 852,
+          "sha256": "7312fab4091a484c6a6d65d26503f9a143e2bc6de481890fd5e6d36d2027f541"
+        },
+        {
+          "name": "requirements.txt",
+          "path": "ML-Library-Workspaces/linear-regression/solution/requirements.txt",
+          "byteLength": 56235,
+          "sha256": "1c6ca42e13eb0ae74bda741fd45ffb7f9eceb8999e6c4d8c5f6aac13854cac74"
+        }
+      ]
+    },
+    {
+      "project": "polynomial-regression",
+      "title": "Linear and quadratic fits on the supplied curve",
+      "role": "starter",
+      "taskFile": "exercise.py",
+      "taskFunction": "fit_model",
+      "originalFolder": "ML-Simple-Polynomial-Regression-Updated",
+      "folder": "ML-Library-Workspaces/polynomial-regression/starter",
+      "dataset": null,
+      "command": "python main.py",
+      "files": [
+        {
+          "name": "README.md",
+          "path": "ML-Library-Workspaces/polynomial-regression/starter/README.md",
+          "byteLength": 1761,
+          "sha256": "85e595bccd9604b3d39498fd77b13f6d0563705ad84cb4312d8cb160667acd94"
+        },
+        {
+          "name": "SOURCES.md",
+          "path": "ML-Library-Workspaces/polynomial-regression/starter/SOURCES.md",
+          "byteLength": 521,
+          "sha256": "dfd0d4d47d9a921d4d809e5d15678cb0fc738cc88b14c7ca70030cb7d155dda0"
+        },
+        {
+          "name": "exercise.py",
+          "path": "ML-Library-Workspaces/polynomial-regression/starter/exercise.py",
+          "byteLength": 163,
+          "sha256": "a57c4173f29c5244b95e9e7fbbd9be9bd54a34d7a15e815c6dc1e56c6d56c2ff"
+        },
+        {
+          "name": "main.py",
+          "path": "ML-Library-Workspaces/polynomial-regression/starter/main.py",
+          "byteLength": 1853,
+          "sha256": "498683c7f374b3089077f43bb706cb1a830c466c25b4118d9b8f5de0c0e64232"
+        },
+        {
+          "name": "requirements.txt",
+          "path": "ML-Library-Workspaces/polynomial-regression/starter/requirements.txt",
+          "byteLength": 56235,
+          "sha256": "1c6ca42e13eb0ae74bda741fd45ffb7f9eceb8999e6c4d8c5f6aac13854cac74"
+        }
+      ]
+    },
+    {
+      "project": "polynomial-regression",
+      "title": "Linear and quadratic fits on the supplied curve",
+      "role": "solution",
+      "taskFile": "exercise.py",
+      "taskFunction": "fit_model",
+      "originalFolder": "ML-Simple-Polynomial-Regression-Updated",
+      "folder": "ML-Library-Workspaces/polynomial-regression/solution",
+      "dataset": null,
+      "command": "python main.py",
+      "files": [
+        {
+          "name": "README.md",
+          "path": "ML-Library-Workspaces/polynomial-regression/solution/README.md",
+          "byteLength": 1728,
+          "sha256": "86d39e9036a5abaebc8037497d2624907fc8b50dd6e30349796ff0fc37addee2"
+        },
+        {
+          "name": "SOURCES.md",
+          "path": "ML-Library-Workspaces/polynomial-regression/solution/SOURCES.md",
+          "byteLength": 521,
+          "sha256": "dfd0d4d47d9a921d4d809e5d15678cb0fc738cc88b14c7ca70030cb7d155dda0"
+        },
+        {
+          "name": "exercise.py",
+          "path": "ML-Library-Workspaces/polynomial-regression/solution/exercise.py",
+          "byteLength": 338,
+          "sha256": "ff0e69552be6f5dca18f09f304ae35575764ccfedc7c54821cdfaa70df79b16d"
+        },
+        {
+          "name": "main.py",
+          "path": "ML-Library-Workspaces/polynomial-regression/solution/main.py",
+          "byteLength": 1853,
+          "sha256": "498683c7f374b3089077f43bb706cb1a830c466c25b4118d9b8f5de0c0e64232"
+        },
+        {
+          "name": "requirements.txt",
+          "path": "ML-Library-Workspaces/polynomial-regression/solution/requirements.txt",
+          "byteLength": 56235,
+          "sha256": "1c6ca42e13eb0ae74bda741fd45ffb7f9eceb8999e6c4d8c5f6aac13854cac74"
+        }
+      ]
+    },
+    {
+      "project": "country-year-regression",
+      "title": "Country-year linear and regularized regression",
+      "role": "starter",
+      "taskFile": "exercise.py",
+      "taskFunction": "fit_model",
+      "originalFolder": "ML5-Predicting-Life-Expectancy",
+      "folder": "ML-Library-Workspaces/country-year-regression/starter",
+      "dataset": "life_expectancy.csv",
+      "command": "python main.py --output-dir output",
+      "files": [
+        {
+          "name": "README.md",
+          "path": "ML-Library-Workspaces/country-year-regression/starter/README.md",
+          "byteLength": 2542,
+          "sha256": "4279f99fa90b9b5206c63ccf60e086d21d0a7f842ffe5df95bccb81808bca5c3"
+        },
+        {
+          "name": "SOURCES.md",
+          "path": "ML-Library-Workspaces/country-year-regression/starter/SOURCES.md",
+          "byteLength": 1012,
+          "sha256": "efa48954a8ca6a8b68d4e4b416eaf3480ac60e28c90d10a4db1ae88745ce4f3f"
+        },
+        {
+          "name": "exercise.py",
+          "path": "ML-Library-Workspaces/country-year-regression/starter/exercise.py",
+          "byteLength": 161,
+          "sha256": "0de0f59119d4cd208fd86298898b3c830c207f7a570d4d70155b57998381892a"
+        },
+        {
+          "name": "life_expectancy.csv",
+          "path": "ML-Library-Workspaces/country-year-regression/starter/life_expectancy.csv",
+          "byteLength": 330503,
+          "sha256": "c3d22755ed3781c3a281d7b60f39f5a474a361e36ac56e84c2a747d8a7e05ec4"
+        },
+        {
+          "name": "main.py",
+          "path": "ML-Library-Workspaces/country-year-regression/starter/main.py",
+          "byteLength": 7766,
+          "sha256": "9c729cfb6d7ef69d0f3b8b974d8387853afa07fee7f1722a7ee7f46023d9c6f2"
+        },
+        {
+          "name": "requirements.txt",
+          "path": "ML-Library-Workspaces/country-year-regression/starter/requirements.txt",
+          "byteLength": 56235,
+          "sha256": "1c6ca42e13eb0ae74bda741fd45ffb7f9eceb8999e6c4d8c5f6aac13854cac74"
+        }
+      ]
+    },
+    {
+      "project": "country-year-regression",
+      "title": "Country-year linear and regularized regression",
+      "role": "solution",
+      "taskFile": "exercise.py",
+      "taskFunction": "fit_model",
+      "originalFolder": "ML5-Predicting-Life-Expectancy",
+      "folder": "ML-Library-Workspaces/country-year-regression/solution",
+      "dataset": "life_expectancy.csv",
+      "command": "python main.py --output-dir output",
+      "files": [
+        {
+          "name": "README.md",
+          "path": "ML-Library-Workspaces/country-year-regression/solution/README.md",
+          "byteLength": 2509,
+          "sha256": "26c5429a3b740af3a3089f7f2a45510f3d3d8744bf5de0a4de4e9d01cce784aa"
+        },
+        {
+          "name": "SOURCES.md",
+          "path": "ML-Library-Workspaces/country-year-regression/solution/SOURCES.md",
+          "byteLength": 1012,
+          "sha256": "efa48954a8ca6a8b68d4e4b416eaf3480ac60e28c90d10a4db1ae88745ce4f3f"
+        },
+        {
+          "name": "exercise.py",
+          "path": "ML-Library-Workspaces/country-year-regression/solution/exercise.py",
+          "byteLength": 698,
+          "sha256": "a91926b08d66ec201a85fb9380cab686da292bbf2e665085fa1fccbf97878f51"
+        },
+        {
+          "name": "life_expectancy.csv",
+          "path": "ML-Library-Workspaces/country-year-regression/solution/life_expectancy.csv",
+          "byteLength": 330503,
+          "sha256": "c3d22755ed3781c3a281d7b60f39f5a474a361e36ac56e84c2a747d8a7e05ec4"
+        },
+        {
+          "name": "main.py",
+          "path": "ML-Library-Workspaces/country-year-regression/solution/main.py",
+          "byteLength": 7766,
+          "sha256": "9c729cfb6d7ef69d0f3b8b974d8387853afa07fee7f1722a7ee7f46023d9c6f2"
+        },
+        {
+          "name": "requirements.txt",
+          "path": "ML-Library-Workspaces/country-year-regression/solution/requirements.txt",
+          "byteLength": 56235,
+          "sha256": "1c6ca42e13eb0ae74bda741fd45ffb7f9eceb8999e6c4d8c5f6aac13854cac74"
+        }
+      ]
+    }
+  ]
+}
