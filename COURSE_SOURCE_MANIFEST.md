@@ -84,12 +84,18 @@ Canonical source repository: `AI-Level-2`
 | `ML8-Master-Project` |
 | `ML8-Offline-Model-Comparison` |
 
+| `ML-Library-Workspaces` |
+| `ML3-Email-Spam-Classification-Starter` |
+| `ML4-Neuron-Implementation-Starter` |
+| `ML4-Simple-Neural-Network-Starter` |
+| `ML5-Predicting-Life-Expectancy-Starter` |
+
 ## Source Inventory
 
-- Active top-level project, fixture and support folders: 67
+- Active top-level project, fixture and support folders: 72
 - Top-level archive container: 1
 - Retained folders inside the archive: 4
-- Source-like files: 303
+- Source-like files: 400
 
 ML-Source-Cases is shared generator/reference/verification support, not a separately assigned learner project. Every role project contains its own required model and inputs.
 
