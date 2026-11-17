@@ -7,7 +7,7 @@ import sys
 import unittest
 ROOT = Path(__file__).resolve().parent.parent
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--stdlib', action='store_true', help='Run the 208 standard-library contracts without the optional ML library graph')
+parser.add_argument('--stdlib', action='store_true', help='Run the standard-library contracts without the optional ML library graph')
 args = parser.parse_args()
 files = sorted(ROOT.glob('test*.py')) + sorted(ROOT.glob('ML-*/test*.py'))
 if args.stdlib:

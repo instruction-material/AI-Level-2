@@ -128,6 +128,6 @@ workflow retains both dependency audits and the separate original-source proof.
 
 
 The complete hash-locked source-verification environment runs
-python -I -B ML-Source-Cases/run_tests.py for all 221 contracts, including the
-13 original-clustering library contracts. The --stdlib route retains the 208
-checks that require no third-party packages. Full CI always runs all 221.
+python -I -B ML-Source-Cases/run_tests.py for all 222 contracts, including the
+13 original-clustering library contracts. The --stdlib route retains the 209
+checks that require no third-party packages. Full CI always runs all 222.
