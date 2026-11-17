@@ -1,169 +1,137 @@
-"""
-Dataset: https://www.kaggle.com/vjchoudhary7/customer-segmentation-tutorial-in-python
+"""Learn to imitate a training-only customer clustering rule with scaled neighbors."""
+import argparse
+import json
+from pathlib import Path
 
-Using your customer segmentation clustering project, implement the k-nearest neighbors algorithm from scratch to classify customers into a cluster based on their annual income and spending score. Test your implementation on an actual data point.
-"""
-
-import math
-import random
-from copy import deepcopy
-
-import matplotlib.pyplot as plt
-import pandas as pd
+FEATURES = ["Annual Income", "Spending Score"]
 
 
-def calculate_dist(a, b):
-    total = 0
-    for i in range(len(a)):
-        total += (a[i] - b[i]) ** 2
-    return total**0.5
+def nearest_neighbors(points, labels, query, count=3):
+    """Keep distinct observations even when their feature values are identical."""
+    if not 1 <= count <= len(points) or len(points) != len(labels):
+        raise ValueError("Choose a neighbor count within the training rows")
+    ordered = sorted(range(len(points)), key=lambda index: (
+        sum((float(a) - float(b)) ** 2 for a, b in zip(points[index], query)), index))
+    return [labels[index] for index in ordered[:count]]
 
 
-def is_same(a, b):
-    for first, second in zip(a, b):
-        if first != second:
-            return False
-    return True
+def majority_vote(k2_neighbors_count):
+    """The manual trace resolves equal counts by first encountered neighbor."""
+    max_label = -1
+    max_count = -1
+    for key in k2_neighbors_count:
+        if k2_neighbors_count[key] > max_count:
+            max_count = k2_neighbors_count[key]
+            max_label = key
+    return max_label, max_count
 
 
-def calculate_centroid(points):
-    x_sum = 0
-    y_sum = 0
-    for point in points:
-        x_sum += point[0]
-        y_sum += point[1]
-    return (x_sum / len(points), y_sum / len(points))
+def fit_experiment(frame):
+    import numpy as np
+    from sklearn.cluster import KMeans
+    from sklearn.dummy import DummyClassifier
+    from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
+    from sklearn.model_selection import train_test_split
+    from sklearn.neighbors import KNeighborsClassifier
+    from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import StandardScaler
+
+    features = frame[FEATURES].to_numpy(dtype=float)
+    if not np.isfinite(features).all() or len(features) < 12:
+        raise ValueError("Use at least twelve complete finite observations")
+    train_ids, test_ids = train_test_split(np.arange(len(frame)), test_size=0.25,
+                                          random_state=42)
+    train_x, test_x = features[train_ids], features[test_ids]
+    if len(np.unique(train_x, axis=0)) < 5:
+        raise ValueError("Five clusters need at least five distinct training observations")
+    clusterer = Pipeline([
+        ("scale", StandardScaler()),
+        ("cluster", KMeans(n_clusters=5, random_state=42, n_init=10, max_iter=100)),
+    ]).fit(train_x)
+    train_y = clusterer.predict(train_x)
+    test_y = clusterer.predict(test_x)
+    classifier = Pipeline([
+        ("scale", StandardScaler()),
+        ("neighbors", KNeighborsClassifier(n_neighbors=3, weights="uniform")),
+    ]).fit(train_x, train_y)
+    predicted = classifier.predict(test_x)
+    baseline = DummyClassifier(strategy="most_frequent").fit(train_x, train_y)
+    baseline_predictions = baseline.predict(test_x)
+    labels = sorted(map(int, set(train_y)))
+
+    def metrics(predictions):
+        return {"accuracy": float(accuracy_score(test_y, predictions)),
+                "macro_f1": float(f1_score(test_y, predictions, labels=labels,
+                                           average="macro", zero_division=0)),
+                "confusion_matrix": confusion_matrix(test_y, predictions, labels=labels).tolist()}
+
+    query = [[90.0, 20.0]]
+    scale = classifier.named_steps["scale"]
+    manual_labels = nearest_neighbors(scale.transform(train_x), train_y,
+                                      scale.transform(query)[0])
+    counts = {}
+    for label in manual_labels:
+        label = int(label)
+        counts[label] = counts.get(label, 0) + 1
+    manual_label, votes = majority_vote(counts)
+    report = {
+        "rows": len(frame), "features": FEATURES, "random_state": 42,
+        "train_ids": train_ids.tolist(), "test_ids": test_ids.tolist(),
+        "train_rows": len(train_ids), "test_rows": len(test_ids),
+        "cluster_count": 5, "neighbor_count": 3, "model_fixed_before_test": True,
+        "cluster_fitted_rows": int(clusterer.named_steps["scale"].n_samples_seen_),
+        "neighbor_fitted_rows": int(scale.n_samples_seen_),
+        "training_means": scale.mean_.tolist(), "training_variances": scale.var_.tolist(),
+        "scaled_cluster_centers": clusterer.named_steps["cluster"].cluster_centers_.tolist(),
+        "cluster_iterations": int(clusterer.named_steps["cluster"].n_iter_),
+        "class_labels": labels, "train_labels": train_y.tolist(),
+        "test_truth": test_y.tolist(), "test_predictions": predicted.tolist(),
+        "metrics": metrics(predicted), "baseline_predictions": baseline_predictions.tolist(),
+        "baseline_metrics": metrics(baseline_predictions),
+        "query": {"features": query[0], "prediction": int(classifier.predict(query)[0]),
+                  "manual_neighbor_labels": list(map(int, manual_labels)),
+                  "manual_prediction": int(manual_label), "manual_votes": votes},
+        "manual_ties": "first encountered neighbor; sklearn uniform ties use its sorted class order",
+        "limitation": "Labels are generated by the fitted training clustering rule. Scores measure imitation of that rule, not real customer types or outcomes.",
+    }
+    return report, clusterer, classifier
 
 
-def draw_clustered_graph(k, X, clusters, centroids):
-    colors = ['r', 'g', 'b', 'y', 'c', 'm']
-    fig, ax = plt.subplots()
-    for i in range(k):
-        xpoints = []
-        ypoints = []
-        for j in range(len(X)):
-            if clusters[j] == i:
-                xpoints.append(X[j][0])
-                ypoints.append(X[j][1])
-        ax.scatter(xpoints, ypoints, s=7, c=colors[i % len(colors)])
-        print(
-            "Cluster Number: " + str(i) + " | Color: " + colors[i % len(colors)]
-        )
+def main():
+    import matplotlib.pyplot as plt
+    import numpy as np
+    import pandas as pd
+    import sklearn
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output-dir", type=Path, default=Path("."))
+    args = parser.parse_args()
+    source = Path(__file__).resolve().with_name("customers.csv")
+    frame = pd.read_csv(source)
+    report, clusterer, _ = fit_experiment(frame)
+    report["dataset"] = source.name
+    report["versions"] = {"numpy": np.__version__, "pandas": pd.__version__,
+                          "scikit_learn": sklearn.__version__}
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    values = frame[FEATURES].to_numpy()
+    for filename, clustered in [("before_clustering.png", False), ("clustered_graph.png", True)]:
+        fig, ax = plt.subplots()
+        ax.scatter(values[:, 0], values[:, 1], s=12,
+                   c=clusterer.predict(values) if clustered else "#386cb0")
+        if clustered:
+            centers = clusterer.named_steps["scale"].inverse_transform(
+                clusterer.named_steps["cluster"].cluster_centers_)
+            ax.scatter(centers[:, 0], centers[:, 1], marker="*", s=150, c="black", label="Training centers")
+            ax.scatter([90], [20], marker="X", s=80, c="red", label="Hypothetical query")
+            ax.legend()
+        ax.set(xlabel="Annual Income", ylabel="Spending Score",
+               title="Training-derived segments" if clustered else "Supplied customer features")
+        fig.tight_layout()
+        fig.savefig(args.output_dir / filename)
+        plt.close(fig)
+    (args.output_dir / "classification-report.json").write_text(json.dumps(report, indent=2) + "\n")
+    print(json.dumps({key: report[key] for key in ["rows", "train_rows", "test_rows", "metrics",
+                                                 "baseline_metrics", "query", "versions", "limitation"]}))
 
-    xpoints = []
-    ypoints = []
-    for c in centroids:
-        xpoints.append(c[0])
-        ypoints.append(c[1])
-    ax.scatter(xpoints, ypoints, marker='*', s=200, c='#050505')
-    plt.savefig("clustered_graph.png")
-    print()
 
-
-# read in the data
-data = pd.read_csv('customers.csv')
-income = data['Annual Income']
-spending = data['Spending Score']
-
-# graph before any clustering
-plt.scatter(income, spending, s=7)
-plt.savefig("before_clustering.png")
-plt.clf()
-
-k = 5
-# builds array of data points
-X = list(zip(income, spending))
-
-# initialize random centroids
-centroids = []
-
-for i in range(k):
-    random_index = random.randint(0, len(income) - 1)
-    x = X[random_index][0]
-    y = X[random_index][1]
-    centroids.append((x, y))
-
-# build array of tuples to store old centroids
-old_centroids = []
-for i in range(k):
-    old_centroids.append((0, 0))
-
-# index i in clusters stores the cluster assigned for data point i
-clusters = [0] * len(X)
-
-# if error is 0 then the centroids have not moved from the last iteration (therefore we can stop)
-while not is_same(centroids, old_centroids):
-    # calculate distance from each centroid for each data point
-    for i in range(len(X)):
-        min_dist = math.inf
-        for j in range(len(centroids)):
-            dist = calculate_dist(X[i], centroids[j])
-            if dist < min_dist:
-                min_dist = dist
-                clusters[i] = j
-
-    # replace old centroids with current ones
-    old_centroids = deepcopy(centroids)
-
-    # calculate new centroids
-    for i in range(k):
-        points = []
-        for j in range(len(X)):
-            if clusters[j] == i:
-                points.append(X[j])
-        centroids[i] = calculate_centroid(points)
-
-draw_clustered_graph(k, X, clusters, centroids)
-
-###### KNN Implementation ######
-# another k value for KNN (different than the clustering k value)
-k2 = 3
-
-# data pt we want to classify written as (income, spending)
-data_pt = (90, 20)
-
-# find k2 closest neighbors
-# dictionary maps each of the k2 neighbors to their distance
-k2_nearest = {}
-
-# loop through each point and calculate its distance from the point we want to classify
-for point in X:
-    dist = calculate_dist(point, data_pt)
-
-    # if dictionary doesn't have k values yet, add the current data point
-    if len(k2_nearest) < k2:
-        k2_nearest[point] = dist
-    # if dictionary has k values, find the largest distance value in the dictionary and check if the current distance is less. If so, swap the old max out and place new data point into dictionary.
-    else:
-        max_neighbor = (-1, -1)
-        max_dist = -1
-        for neighbor in k2_nearest:
-            if k2_nearest[neighbor] > max_dist:
-                max_neighbor = neighbor
-                max_dist = k2_nearest[neighbor]
-
-        if max_dist > dist:
-            k2_nearest.pop(max_neighbor)
-            k2_nearest[point] = dist
-
-# dict to store the amount of neighbors that fall in each cluster
-k2_neighbors_count = {}
-
-# count the number of data points in k nearest neighbors that fall into each cluster
-for point in k2_nearest:
-    index = X.index(point)
-    cluster = clusters[index]
-    if cluster in k2_neighbors_count:
-        k2_neighbors_count[cluster] += 1
-    else:
-        k2_neighbors_count[cluster] = 1
-
-# find k in dictionary with max number of points. This is the final classification of your point.
-max_label = -1
-max_count = -1
-for key in k2_neighbors_count:
-    if k2_neighbors_count[key] > max_count:
-        max_count = k2_neighbors_count[key]
-        max_label = key
-
-print(str(data_pt) + " is classified as part of cluster " + str(max_label))
+if __name__ == "__main__":
+    main()

@@ -1,4 +1,4 @@
-"""Execute the original classifier's actual vote tail without fitting its legacy model."""
+"""Execute the original classifier's manual vote helper independently of fitting."""
 import ast
 from pathlib import Path
 import unittest
@@ -8,11 +8,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def vote_tail(source):
     tree = ast.parse(source)
-    begin = next(index for index, node in enumerate(tree.body)
+    helper = next(node for node in tree.body if isinstance(node, ast.FunctionDef)
+                  and node.name == "majority_vote")
+    begin = next(index for index, node in enumerate(helper.body)
                  if isinstance(node, ast.Assign)
                  and any(isinstance(target, ast.Name) and target.id == "max_label"
                          for target in node.targets))
-    nodes = tree.body[begin:begin + 3]
+    nodes = helper.body[begin:begin + 3]
     assert len(nodes) == 3 and isinstance(nodes[-1], ast.For)
     assert isinstance(nodes[-1].iter, ast.Name) and nodes[-1].iter.id == "k2_neighbors_count"
     return compile(ast.Module(body=nodes, type_ignores=[]), "actual-classifier-vote-tail", "exec")
