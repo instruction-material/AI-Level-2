@@ -13,6 +13,10 @@ plt.clf()
 # Try a linear model
 print('Linear Model: ')
 model = LinearRegression().fit(x, y)
+residuals = y - model.predict(x)
+print("Training R-squared: " + str(model.score(x, y)))
+print("Training MAE: " + str(float(np.abs(residuals).mean())))
+print("Training RMSE: " + str(float(np.sqrt((residuals ** 2).mean()))))
 
 b = model.intercept_
 coefs = model.coef_
@@ -24,16 +28,21 @@ plt.plot(x, x * coefs[0] + b, 'r')
 plt.savefig("linear.png")
 plt.clf()
 
-test = np.array([6]).reshape(-1, 1)
+test = np.array([7]).reshape(-1, 1)
 print("Predicted value of y for x = 7: " + str(model.predict(test)[0]))
 print()
 
 # try a polynomial model
 # degree = degree of polynomial
 print('Polynomial Model: ')
-x_modified = PolynomialFeatures(degree=2, include_bias=False).fit_transform(x)
+features = PolynomialFeatures(degree=2, include_bias=False)
+x_modified = features.fit_transform(x)
 
 model = LinearRegression().fit(x_modified, y)
+residuals = y - model.predict(x_modified)
+print("Training R-squared: " + str(model.score(x_modified, y)))
+print("Training MAE: " + str(float(np.abs(residuals).mean())))
+print("Training RMSE: " + str(float(np.sqrt((residuals ** 2).mean()))))
 
 b = model.intercept_
 # index 0 is the coefficient of x, index 1 is the coefficient of x^2 and so on
@@ -46,8 +55,6 @@ plt.plot(x, x * x * coefs[1] + x * coefs[0] + b, 'r')
 plt.savefig("polynomial.png")
 plt.clf()
 
-test = np.array([6]).reshape(-1, 1)
-test_modified = PolynomialFeatures(degree=2, include_bias=False).fit_transform(
-    test
-)
+test = np.array([7]).reshape(-1, 1)
+test_modified = features.transform(test)
 print("Predicted value of y for x = 7: " + str(model.predict(test_modified)[0]))

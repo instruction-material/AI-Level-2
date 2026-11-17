@@ -13,10 +13,11 @@ model = LinearRegression()
 model.fit(x, y)
 
 # line of best fit has form y = mx + b where m = slope and b = y-intercept
-corr = model.score(x, y)
+r_squared = model.score(x, y)
 b = model.intercept_
 m = model.coef_[0]
-print("Correlation Between x and y: " + str(corr))
+print("Training R-squared: " + str(r_squared))
+print("Pearson correlation: " + str(float(np.corrcoef(x.ravel(), y)[0, 1])))
 print("y intercept: " + str(b))
 print("slope: " + str(m))
 
