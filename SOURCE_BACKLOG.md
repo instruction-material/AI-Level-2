@@ -71,9 +71,9 @@ IDE workflows remain separate from this source milestone.
 
 
 The complete hash-locked source-verification environment runs
-python -I -B ML-Source-Cases/run_tests.py for all 222 contracts, including the
+python -I -B ML-Source-Cases/run_tests.py for all 223 contracts, including the
 13 original-clustering library contracts. The --stdlib route retains the 209
-checks that require no third-party packages. Full CI always runs all 222.
+checks that require no third-party packages. Full CI always runs all 223.
 
 ## Original customer KNN vote counter, 2026-11-17
 
@@ -82,3 +82,12 @@ voting tail is executed on four independently specified majority/tie cases;
 replacing the fix with the old dictionary assignment reproduces TypeError.
 This check does not execute the preceding clustering pipeline. Its unscaled,
 unbounded clustering and other original ML2/ML3/ML5 repairs remain open.
+
+## Original ten-point regression statistics, 2026-11-17
+
+The original line-fitting demonstration now names training R-squared correctly
+and separately reports signed Pearson correlation. Its actual program, prediction
+and both generated plots are checked against independent rational arithmetic.
+The README distinguishes training fit from held-out prediction and causation.
+This is the introductory fit demonstration; the other original regression/classifier
+and full teaching repairs remain open.
