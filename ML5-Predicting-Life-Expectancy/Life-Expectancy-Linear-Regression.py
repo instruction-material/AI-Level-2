@@ -1,82 +1,106 @@
-# -*- coding: utf-8 -*-
-"""
-Life Expectancy Linear + Polynomial Regression
+"""Compare linear and quadratic models for supplied country-year observations."""
+import argparse
+import json
+from pathlib import Path
 
-Original file is located at
-    https://colab.research.google.com/drive/1Y0Rm_Pi6Gj-tXNlf-tGEcpLqUAShrwIR
-"""
+TARGET = "Life expectancy "
 
-"""
-Dataset: https://www.kaggle.com/kumarajarshi/life-expectancy-who
 
-Build a linear regression model and a polynomial regression model that predicts the life expectancy of a person based on their characteristics. Determine which model best fits the data.
-"""
+def fit_model(features, targets, degree):
+    from sklearn.impute import SimpleImputer
+    from sklearn.linear_model import LinearRegression
+    from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import PolynomialFeatures, StandardScaler
+    model = Pipeline([("fill", SimpleImputer(strategy="median", keep_empty_features=True)),
+                      ("scale", StandardScaler()),
+                      ("polynomial", PolynomialFeatures(degree=degree, include_bias=False)),
+                      ("regression", LinearRegression())])
+    model.fit(features, targets)
+    return model
 
-import numpy as np
-import pandas as pd
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import PolynomialFeatures
 
-# Load CSV dataset from URL
-# filepath = 'https://static.junilearning.com/ai_level_2/life_expectancy.csv'
-filepath = 'https://static.classes.jacobdanders.net/life_expectancy.csv'
-# dataset: https://www.kaggle.com/kumarajarshi/life-expectancy-who
-data = pd.read_csv(filepath)
+def metrics(truth, predictions):
+    from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+    return {"mae_years": float(mean_absolute_error(truth, predictions)),
+            "rmse_years": float(mean_squared_error(truth, predictions) ** 0.5),
+            "r_squared": float(r2_score(truth, predictions))}
 
-# Remove non-numeric or categorical columns
-data = data.drop('Country', axis=1)
-data = data.drop('Status', axis=1)
 
-# Remove rows with missing values
-data.dropna(inplace=True)
+def choose_degree(validation_metrics):
+    # Require a two-percent validation-MAE improvement to choose extra complexity.
+    return 2 if validation_metrics[2]["mae_years"] < 0.98 * validation_metrics[1]["mae_years"] else 1
 
-print("Dataset preview:")
-print(data.head())
-print()
 
-# Separate features (X) and target values (y)
-X = np.array(data.drop('Life expectancy ', axis=1))
-y = np.array(data['Life expectancy '])
+def fit_experiment(raw):
+    import numpy as np
+    from sklearn.dummy import DummyRegressor
+    from sklearn.model_selection import GroupShuffleSplit
+    frame = raw.dropna(subset=[TARGET]).copy()
+    if frame[["Country", "Year"]].isna().any().any() or frame.duplicated(["Country", "Year"]).any():
+        raise ValueError("Use one complete country-year identity per observation")
+    features = [name for name in frame.columns if name not in ["Country", "Status", TARGET]]
+    x, y = frame[features], frame[TARGET].to_numpy(dtype=float)
+    if not np.isfinite(y).all() or np.isinf(x.to_numpy(dtype=float)).any():
+        raise ValueError("Targets and observed numeric covariates must be finite")
+    development, test = next(GroupShuffleSplit(n_splits=1, test_size=0.2, random_state=42).split(
+        x, groups=frame["Country"]))
+    local_train, local_validation = next(GroupShuffleSplit(n_splits=1, test_size=0.25, random_state=43).split(
+        x.iloc[development], groups=frame.iloc[development]["Country"]))
+    train, validation = development[local_train], development[local_validation]
+    models = {degree: fit_model(x.iloc[train], y[train], degree) for degree in (1, 2)}
+    validation_metrics = {degree: metrics(y[validation], model.predict(x.iloc[validation]))
+                          for degree, model in models.items()}
+    selected = choose_degree(validation_metrics)
+    model = models[selected]
+    predicted = model.predict(x.iloc[test])
+    dummy = DummyRegressor(strategy="mean").fit(x.iloc[train], y[train])
+    baseline = dummy.predict(x.iloc[test])
+    report = {
+        "data_unit": "country-year", "rows_read": len(raw), "rows": len(frame),
+        "missing_targets_removed": len(raw) - len(frame), "features": features,
+        "train_ids": frame.index[train].tolist(), "validation_ids": frame.index[validation].tolist(),
+        "test_ids": frame.index[test].tolist(),
+        "train_rows": len(train), "validation_rows": len(validation), "test_rows": len(test),
+        "countries": {"train": sorted(set(frame.iloc[train]["Country"])),
+                      "validation": sorted(set(frame.iloc[validation]["Country"])),
+                      "test": sorted(set(frame.iloc[test]["Country"]))},
+        "split_seeds": [42, 43], "validation_metrics": validation_metrics,
+        "selection_policy": "quadratic only if validation MAE improves by more than two percent; otherwise linear",
+        "selected_degree": selected, "model_frozen_before_test": True,
+        "test_truth": y[test].tolist(), "test_predictions": predicted.tolist(),
+        "metrics": metrics(y[test], predicted),
+        "baseline_predictions": baseline.tolist(), "baseline_metrics": metrics(y[test], baseline),
+        "training_mean_target": float(y[train].mean()),
+        "fitted_state": {
+            "imputation_medians": model.named_steps["fill"].statistics_.tolist(),
+            "scaling_mean": model.named_steps["scale"].mean_.tolist(),
+            "scaling_scale": model.named_steps["scale"].scale_.tolist(),
+            "polynomial_powers": model.named_steps["polynomial"].powers_.tolist(),
+            "coefficients": model.named_steps["regression"].coef_.tolist(),
+            "intercept": float(model.named_steps["regression"].intercept_),
+        },
+        "limitation": "This evaluates recorded country-year covariates on held-out countries from the same historical period. It establishes neither individual predictions, future forecasting nor causal effects.",
+    }
+    return report, model
 
-print("Feature matrix shape:", X.shape)
-print("Target vector shape:", y.shape)
-print()
 
-# ------------------------ LINEAR REGRESSION ------------------------
+def main():
+    import numpy as np
+    import pandas as pd
+    import sklearn
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output-dir", type=Path, default=Path("."))
+    args = parser.parse_args()
+    source = Path(__file__).resolve().with_name("life_expectancy.csv")
+    report, _ = fit_experiment(pd.read_csv(source))
+    report["dataset"] = source.name
+    report["versions"] = {"numpy": np.__version__, "pandas": pd.__version__, "scikit_learn": sklearn.__version__}
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    (args.output_dir / "regression-report.json").write_text(json.dumps(report, indent=2) + "\n")
+    print(json.dumps({key: report[key] for key in ["data_unit", "rows_read", "rows", "missing_targets_removed",
+                                                 "train_rows", "validation_rows", "test_rows", "validation_metrics",
+                                                 "selected_degree", "metrics", "baseline_metrics", "versions", "limitation"]}))
 
-# Split into training and test sets
-x_train, x_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.25, random_state=42
-)
 
-# Train linear regression model
-model = LinearRegression()
-model.fit(x_train, y_train)
-
-# Evaluate linear model (R² score)
-accuracy = model.score(x_test, y_test)
-print("Linear Regression Score: " + str(accuracy * 100) + " %")
-print()
-
-# ---------------------- POLYNOMIAL REGRESSION ----------------------
-
-# Expand features to include polynomial terms (degree 2)
-x_modified = PolynomialFeatures(degree=2, include_bias=False).fit_transform(X)
-
-# Split polynomial features into train/test sets
-x_train, x_test, y_train, y_test = train_test_split(
-    x_modified, y, test_size=0.25, random_state=42
-)
-
-# Recreate X and y (not strictly necessary but mirrors original script)
-X = np.array(data.drop('Life expectancy ', axis=1))
-y = np.array(data['Life expectancy '])
-
-# Train model on polynomial features
-model.fit(x_train, y_train)
-
-# Evaluate polynomial model (R² score)
-accuracy = model.score(x_test, y_test)
-print("Polynomial Regression Score: " + str(accuracy * 100) + " %")
-print()
+if __name__ == "__main__":
+    main()
