@@ -68,3 +68,9 @@ the full lock and audits both graphs.
 The remaining original classifiers and regression programs still need review
 and repair. Complete teaching coverage, site source/task pinning and actual
 IDE workflows remain separate from this source milestone.
+
+
+The complete hash-locked source-verification environment runs
+python -I -B ML-Source-Cases/run_tests.py for all 221 contracts, including the
+13 original-clustering library contracts. The --stdlib route retains the 208
+checks that require no third-party packages. Full CI always runs all 221.

@@ -15,8 +15,8 @@ inspection, evaluation planning, housing regression, a four-class image CNN
 and a classification capstone. All are standard-library Python projects with
 their required local inputs.
 
-Run python3 -I -B ML-Source-Cases/run_tests.py for all 208 independent source
-contracts. See COURSE_SOURCE_MANIFEST.md for inventory and SOURCE_BACKLOG.md
+Run python3 -I -B ML-Source-Cases/run_tests.py --stdlib for the 208
+standard-library source contracts. See COURSE_SOURCE_MANIFEST.md for inventory and SOURCE_BACKLOG.md
 for exact scope and the remaining site/whole-course review boundary.
 
 Each starter names a function to implement; its solution is a complete worked
@@ -34,3 +34,9 @@ directory; --output-dir chooses where the two plots and JSON report are saved.
 The verification environment uses requirements-ml-legacy-dev.txt.
 Run python -I -B ML-Legacy-Core-Contracts/test_clustering.py for the 13
 independent contracts and actual starter/reference execution checks.
+
+
+The complete hash-locked source-verification environment runs
+python -I -B ML-Source-Cases/run_tests.py for all 221 contracts, including the
+13 original-clustering library contracts. The --stdlib route retains the 208
+checks that require no third-party packages. Full CI always runs all 221.

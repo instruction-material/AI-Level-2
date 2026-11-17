@@ -45,12 +45,15 @@ jobs:
           import json, pathlib, subprocess, sys
           output = pathlib.Path("output/source-contracts.json")
           result = json.loads(output.read_text())
-          assert result["accepted"] and result["tests"] == 208
+          assert result["accepted"] and result["tests"] == 221
           assert result["failures"] == result["errors"] == result["skipped"] == 0
           result.update(source=subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(), python=sys.version)
           output.write_text(json.dumps(result, indent=2) + "\n")
+          legacy = next(row for row in result["contracts"] if row["file"] == "ML-Legacy-Core-Contracts/test_clustering.py")
+          assert legacy["tests"] == 13 and len(legacy["actualProgramExecutions"]) == 11
+          legacy.update(accepted=True, source=result["source"], python=sys.version)
+          pathlib.Path("output/legacy-clustering-contracts.json").write_text(json.dumps(legacy, indent=2) + "\n")
           PY
-          python3 -I -B ML-Legacy-Core-Contracts/test_clustering.py
           git diff --exit-code
       - name: Retain source evidence
         if: always()

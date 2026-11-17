@@ -95,8 +95,8 @@ ML-Source-Cases is shared generator/reference/verification support, not a separa
 
 ## Independent algorithm and execution checks
 
-Run python3 -I -B ML-Source-Cases/run_tests.py from the repository root.
-All 208 independent contracts cover the existing 145 checks plus 63 new checks
+Run python3 -I -B ML-Source-Cases/run_tests.py --stdlib from the repository root.
+The 208 standard-library contracts cover the existing 145 checks plus 63 new checks
 for the remaining eighteen source pairs and the complete image/capstone cores.
 
 The thirty generated supplemental pairs now contain distinct named methods and
@@ -125,3 +125,9 @@ centroid interview scaffold. All retain their own original CSV. Run its
 test_clustering.py in the hash-locked verification environment for 13 additional
 contracts and actual worked-reference/completed-starter executions. The hosted
 workflow retains both dependency audits and the separate original-source proof.
+
+
+The complete hash-locked source-verification environment runs
+python -I -B ML-Source-Cases/run_tests.py for all 221 contracts, including the
+13 original-clustering library contracts. The --stdlib route retains the 208
+checks that require no third-party packages. Full CI always runs all 221.
