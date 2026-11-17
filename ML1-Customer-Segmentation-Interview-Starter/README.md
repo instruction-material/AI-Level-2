@@ -17,3 +17,5 @@ and label-permutation-aware agreement together, then explain one uncertainty.
 The displayed k is an example, not a statistically proved best number of groups.
 
 Customer labels describe the supplied observations, not real customer types.
+
+The saved PNGs preview the completed reference from ML1-Customer-Segmentation-Updated. Complete the missing centroid function before reproducing them locally.
