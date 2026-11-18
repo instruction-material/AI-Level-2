@@ -120,3 +120,7 @@ pipeline and complete teaching/workflow sign-off remain open.
 Seven self-contained named-fitting role pairs now supply the remaining classifier and regression projects under ML-Library-Workspaces. Their original CSVs, reference provenance and runtime lock remain explicit. The country-year comparison completes regularization, frozen final-test comparisons, training-defined year/missingness slices and country-block resampling evidence. Existing original sources remain unchanged.
 
 The full gate now contains 257 contracts, including fourteen new independent role/model contracts and twenty-one actual program executions. Site curriculum mappings, consented IDE import/save/reopen/export and whole-course acceptance remain separate delivery work.
+
+## Completed: decision-tree model selection
+
+The shallow-tree core now has complete local source roles, a worked validation-depth comparison, a training-only majority baseline, final prediction paths and a frozen-model boundary probe. Fixed tiny fictional splits demonstrate behavior; they support no population-performance claim.
