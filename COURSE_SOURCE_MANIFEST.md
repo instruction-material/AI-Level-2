@@ -134,6 +134,11 @@ workflow retains both dependency audits and the separate original-source proof.
 
 
 The complete hash-locked source-verification environment runs
-python -I -B ML-Source-Cases/run_tests.py for all 227 contracts, including the
-13 original-clustering library contracts. The --stdlib route retains the 209
-checks that require no third-party packages. Full CI always runs all 227.
+python -I -B ML-Source-Cases/run_tests.py for all 265 contracts, including the
+original-clustering, library-workspace and tree-selection contracts. The --stdlib
+route retains the 223 checks that require no third-party packages. Full CI
+runs all 265.
+
+## Decision-tree model selection
+
+ML35-Decision-Tree-Selection includes complete starter/reference roles with training, validation and test CSV files, supplied tree rules and a named validation-only depth-selection task. ML-Tree-Selection-Contracts supplies eight independent contracts, including exported native execution and held-out-label invariance. The existing Gini/split and recursive-growth exercises retain their algorithm-implementation purpose.
